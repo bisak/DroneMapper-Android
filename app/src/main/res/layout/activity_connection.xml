@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_connection_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Status: No Product Connected"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/app_name"
+        android:id="@+id/textView"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="@color/colorBlack"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/text_product_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/product_information"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_below="@+id/text_connection_status"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btn_open"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_btn"
+        android:text="Connect"
+        android:textColor="@color/colorWhite"
+        android:textSize="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/text_product_info"
+        android:layout_alignStart="@+id/image_upload_button" />
+
+    <Button
+        android:id="@+id/image_upload_button"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_btn"
+        android:text="Upload Image"
+        android:textColor="@color/colorWhite"
+        android:textSize="20dp"
+        android:layout_below="@+id/btn_open"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:id="@+id/gallery_open_button"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_btn"
+        android:text="View Images"
+        android:textColor="@color/colorWhite"
+        android:textSize="20dp"
+        android:layout_below="@+id/image_upload_button"
+        android:layout_alignStart="@+id/image_upload_button"
+        android:layout_marginTop="25dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sdk_version"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/gallery_open_button"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+        android:id="@+id/thumbnail_upload_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thumbnail"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:visibility="invisible"
+        android:layout_above="@+id/thumbnail_upload_progressbar"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/image_upload_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Image"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:visibility="invisible"
+        android:layout_above="@+id/image_upload_progressbar"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:id="@+id/thumbnail_upload_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/colorPrimary"
+        android:visibility="invisible"
+        android:clickable="false"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/image_upload_text"
+        android:layout_alignStart="@+id/image_upload_progressbar" />
+
+    <ProgressBar
+        android:id="@+id/image_upload_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/colorPrimary"
+        android:visibility="invisible"
+        android:layout_marginBottom="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
