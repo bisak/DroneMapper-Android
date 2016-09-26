@@ -191,7 +191,7 @@ public class EntryActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.btn_open: {
-                Intent intent = new Intent(this, LiveViewActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
             }

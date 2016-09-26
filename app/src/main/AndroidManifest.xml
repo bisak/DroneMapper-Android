@@ -68,7 +68,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LiveViewActivity"
+            android:name=".MainActivity"
             android:screenOrientation="landscape"></activity>
         <activity android:name=".ImagesGalleryActivity"></activity>
 

@@ -3,87 +3,133 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
+
+    <TextView
+        android:id="@+id/debug_msg_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorBlack"
+        android:elevation="1dp"
+        android:textColor="@color/colorWhite" />
+
+    <TextView
+        android:id="@+id/debug_msg_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/debug_msg_one"
+        android:background="@color/colorBlack"
+        android:elevation="1dp"
+        android:textColor="@color/colorWhite" />
+
+    <LinearLayout
+        android:id="@+id/buttons_bar"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:elevation="1dp"
+        android:orientation="vertical"
+        android:layout_width="90dp">
+
+        <Button
+            android:id="@+id/btn_capture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Capture"
+            android:textSize="12sp" />
+
+        <ToggleButton
+            android:id="@+id/btn_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:checked="false"
+            android:text="Start Record"
+            android:textOff="Rec"
+            android:textOn="Stop"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/debug_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Debug1"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/debug_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Debug2" />
+
+        <ToggleButton
+            android:text="ToggleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="false"
+            android:layout_margin="5dp"
+            android:id="@+id/debug_three_toggle" />
+    </LinearLayout>
+
     <TextureView
         android:id="@+id/video_previewer_surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/linearLayout" />
-    
-     <LinearLayout 
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_alignParentBottom="true"
-         android:id="@+id/linearLayout">
-    <Button
-        android:id="@+id/btn_capture"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content"
-        android:text="Capture" 
-        android:textSize="12sp"/>
-
-    <ToggleButton
-        android:id="@+id/btn_record"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Start Record"
-        android:textOff="Start Record"
-        android:textOn="Stop Record"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        android:textSize="12dp"
-        android:checked="false" />
-     
-    <Button
-        android:id="@+id/btn_shoot_photo_mode"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="Shoot Photo Mode"
-        android:textSize="12sp"/>
-
-    <Button
-        android:id="@+id/btn_record_video_mode"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Record Video Mode"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical" />
-
-     </LinearLayout>
+        android:elevation="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/timer"
-        android:layout_width="150dp"
-        android:layout_weight="1"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="23dp"
+        android:layout_weight="1"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"
+        android:elevation="2dp"
         android:gravity="center"
         android:textColor="#ffffff"
-        android:layout_alignTop="@+id/video_previewer_surface"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="81dp"
+        android:layout_marginEnd="9dp"
+        android:layout_alignTop="@+id/buttons_bar"
+        android:layout_toStartOf="@+id/buttons_bar" />
 
     <TextView
-        android:text="Debug One"
-        android:layout_width="wrap_content"
+        android:id="@+id/battery_percentage"
+        android:background="@android:color/black"
+        android:contextClickable="true"
+        android:textColor="@android:color/white"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/debugMsgOne" />
+        android:layout_marginStart="10dp"
+        android:layout_alignBaseline="@+id/debug_msg_two"
+        android:layout_alignBottom="@+id/debug_msg_two"
+        android:layout_alignStart="@+id/buttons_bar"
+        android:textSize="18sp"
+        android:layout_width="wrap_content" />
 
     <TextView
-        android:text="Debug Two"
+        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/debugMsgOne"
-        android:layout_alignParentStart="true"
-        android:id="@+id/debugMsgTwo" />
+        android:layout_marginEnd="203dp"
+        android:id="@+id/debug_msg_three"
+        android:layout_alignBaseline="@+id/battery_percentage"
+        android:layout_alignBottom="@+id/battery_percentage"
+        android:layout_toStartOf="@+id/timer" />
 
 </RelativeLayout>

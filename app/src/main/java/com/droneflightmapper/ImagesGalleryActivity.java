@@ -22,7 +22,7 @@ public class ImagesGalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_images_gallery);
-        getSupportActionBar().setTitle("DroneMapper Gallery");
+        getSupportActionBar().setTitle("DroneFlightMapper Gallery");
 
         imagesDisplayListView = (ListView) findViewById(R.id.listView);
         mDatabase = FirebaseDatabase.getInstance().getReference();

@@ -54,7 +54,8 @@
         android:textSize="20dp"
         android:layout_marginTop="25dp"
         android:layout_below="@+id/text_product_info"
-        android:layout_alignStart="@+id/image_upload_button" />
+        android:layout_alignStart="@+id/image_upload_button"
+        android:elevation="0dp" />
 
     <Button
         android:id="@+id/image_upload_button"
