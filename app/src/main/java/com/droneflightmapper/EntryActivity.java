@@ -31,6 +31,8 @@ import com.drew.metadata.exif.GpsDescriptor;
 import com.drew.metadata.exif.GpsDirectory;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -48,12 +50,13 @@ import dji.sdk.products.DJIAircraft;
 
 public class EntryActivity extends Activity implements View.OnClickListener {
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private static final String TAG = EntryActivity.class.getName();
     private static final int PICTURE_WIDTH = 500;
     private static final int GALLERY_INTENT = 2;
     private TextView mTextConnectionStatus;
     private TextView mTextProduct;
-    private Button mBtnOpen;
     protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
         @Override
@@ -63,8 +66,10 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     };
     private ProgressBar mImageProgressBar;
     private ProgressBar mThumbnailProgressBar;
+    private Button mBtnOpen;
     private Button mOpenGalleryButton;
     private Button mSelectImageButton;
+    private Button mOpenLoginActivity;
     private TextView mThumbnailText;
     private TextView mImageText;
     private StorageReference mStorage;
@@ -76,15 +81,13 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     private String mainUrl;
     private String dbRecordName;
     private String thumbnailUrl;
-    private com.droneflightmapper.PictureData pictureData;
+    private PictureData pictureData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // When the compile and target version is higher than 22, please request the
-        // following permissions at runtime to ensure the
-        // SDK work well.
+        setContentView(R.layout.activity_connection);
+        initUI();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.VIBRATE,
@@ -98,9 +101,8 @@ public class EntryActivity extends Activity implements View.OnClickListener {
                     , 1);
         }
 
-        setContentView(R.layout.activity_connection);
 
-        initUI();
+
 
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -109,6 +111,23 @@ public class EntryActivity extends Activity implements View.OnClickListener {
         IntentFilter filter = new IntentFilter();
         filter.addAction(DroneFlightMapperApplication.FLAG_CONNECTION_CHANGE);
         registerReceiver(mReceiver, filter);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Log.d("hoss", "onAuthStateChanged:signed_in:" + user.getUid());
+                    mOpenLoginActivity.setText("Log Out");
+                    mSelectImageButton.setEnabled(true);
+                } else {
+                    Log.d("hoss", "onAuthStateChanged:signed_out");
+                    mOpenLoginActivity.setText("Log In");
+                    mSelectImageButton.setEnabled(false);
+                }
+            }
+        };
     }
 
     @Override
@@ -124,9 +143,18 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
     public void onStop() {
         Log.e(TAG, "onStop");
         super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     public void onReturn(View view) {
@@ -151,8 +179,10 @@ public class EntryActivity extends Activity implements View.OnClickListener {
 
         mSelectImageButton = (Button) findViewById(R.id.image_upload_button);
         mOpenGalleryButton = (Button) findViewById(R.id.gallery_open_button);
+        mOpenLoginActivity = (Button) findViewById(R.id.login_activity_open);
         mSelectImageButton.setOnClickListener(this);
         mOpenGalleryButton.setOnClickListener(this);
+        mOpenLoginActivity.setOnClickListener(this);
         mImageProgressBar = (ProgressBar) findViewById(R.id.image_upload_progressbar);
         mThumbnailProgressBar = (ProgressBar) findViewById(R.id.thumbnail_upload_progressbar);
         mThumbnailText = (TextView) findViewById(R.id.thumbnail_upload_text);
@@ -206,6 +236,16 @@ public class EntryActivity extends Activity implements View.OnClickListener {
                 startActivity(openGalleryIntent);
                 break;
             }
+
+            case R.id.login_activity_open: {
+                if (mAuth.getCurrentUser() != null) {
+                    mAuth.signOut();
+                } else {
+                    Intent openLoginIntent = new Intent(EntryActivity.this, LoginActivity.class);
+                    startActivity(openLoginIntent);
+                    break;
+                }
+            }
             default:
                 break;
         }
@@ -229,7 +269,7 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             byte[] thumbnail = makeThumbnail(filePath, PICTURE_WIDTH);
             getMetadata(file);
             fileName = getFileNameFromURI(image);
-            dbRecordName = fileName + "-" + UUID.randomUUID().toString();
+            dbRecordName = mDatabase.push().getKey();
             uploadThumbnail(thumbnail);
             uploadImage(image);
         }
@@ -274,18 +314,18 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(EntryActivity.this, "Image Upload Done!", Toast.LENGTH_SHORT).show();
                 mainUrl = taskSnapshot.getDownloadUrl().toString();
-                pictureData = new com.droneflightmapper.PictureData(longitude, latitude, altitude, fileName, mainUrl, thumbnailUrl);
+                pictureData = new PictureData(longitude, latitude, altitude, fileName, mainUrl, thumbnailUrl);
                 mDatabase.child("/images").child(dbRecordName).setValue(pictureData);
                 mImageProgressBar.setVisibility(View.INVISIBLE);
                 mImageText.setVisibility(View.INVISIBLE);
-                mSelectImageButton.setEnabled(true);;
+                mSelectImageButton.setEnabled(true);
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                 mImageProgressBar.setVisibility(View.VISIBLE);
                 mImageText.setVisibility(View.VISIBLE);
-                mSelectImageButton.setEnabled(false);;
+                mSelectImageButton.setEnabled(false);
                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                 mImageProgressBar.setProgress((int) progress);
             }
@@ -293,7 +333,7 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(EntryActivity.this, "Image Upload Failed!", Toast.LENGTH_SHORT).show();
-                mSelectImageButton.setEnabled(true);;
+                mSelectImageButton.setEnabled(true);
             }
         });
     }

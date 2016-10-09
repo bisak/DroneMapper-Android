@@ -11,9 +11,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-/**
- * Created by biskazz on 19.9.2016 г..
- */
 public class ImageListAdapter extends ArrayAdapter {
     ArrayList<String> imageUrls = new ArrayList<>();
     private Context context;
@@ -35,10 +32,7 @@ public class ImageListAdapter extends ArrayAdapter {
             convertView = inflater.inflate(R.layout.listview_item_image, parent, false);
         }
 
-        Glide
-                .with(context)
-                .load(imageUrls.get(position))
-                .into((ImageView) convertView);
+        Glide.with(context).load(imageUrls.get(position)).into((ImageView) convertView);
 
         return convertView;
     }

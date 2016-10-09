@@ -18,6 +18,7 @@ import android.widget.ToggleButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -33,9 +34,7 @@ import dji.sdk.battery.DJIBattery;
 import dji.sdk.camera.DJICamera;
 import dji.sdk.camera.DJICamera.CameraReceivedVideoDataCallback;
 import dji.sdk.codec.DJICodecManager;
-import dji.sdk.flightcontroller.DJIFlightController;
 import dji.sdk.flightcontroller.DJIFlightControllerDelegate;
-import dji.sdk.products.DJIAircraft;
 
 import static com.droneflightmapper.R.id.timer;
 
@@ -50,16 +49,20 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     protected DJICodecManager mCodecManager = null;
 
     protected TextureView mVideoSurface = null;
-    DJIFlightController mFlightController;
-    private Button mCaptureBtn, mDebugOneBtn, mDebugTwoBtn;
-    private ToggleButton mRecordBtn;
+    private Button mCaptureBtn, mDebugOneBtn;
+    private ToggleButton mRecordToggleBtn;
     private ToggleButton mDebugThreeToggleBtn;
+    private ToggleButton mBlinkToggleBtn;
     private TextView mRecordingTime;
     private TextView mDebugMsgOne;
     private TextView mDebugMsgTwo;
     private TextView mDebugMsgThree;
+    private TextView mDebugMsgFour;
+    private TextView mDebugMsgFive;
+    private TextView mDebugMsgSix;
+    private TextView mDebugMsgMotors;
     private TextView mBatteryPercentage;
-    private com.droneflightmapper.DroneLocation droneLocation;
+    private DroneLocation droneLocation = new DroneLocation();
     private DatabaseReference mDatabase;
     private DJICameraSettingsDef.CameraMode currentMode;
     private DJICamera mCamera;
@@ -68,7 +71,9 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     private boolean isSenderTaskRunning = false;
     private boolean isDebugThreeToggleBtnChecked = false;
     private Timer sender;
+    private Timer blinker;
     private String secondaryChild;
+    DecimalFormat df = new DecimalFormat("#.0");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,21 +81,14 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
         setContentView(R.layout.activity_main);
+        initUI();
+
         mCamera = DroneFlightMapperApplication.getCameraInstance();
         mProduct = DroneFlightMapperApplication.getProductInstance();
 
-        if (mProduct != null && mProduct.isConnected()) {
-            if (mProduct instanceof DJIAircraft) {
-                mFlightController = ((DJIAircraft) mProduct).getFlightController();
-            }
-        }
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        droneLocation = new com.droneflightmapper.DroneLocation();
 
-        initUI();
 
         // The callback for receiving the raw H264 video data for mCamera live view
         mReceivedVideoDataCallBack = new CameraReceivedVideoDataCallback() {
@@ -105,7 +103,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 }
             }
         };
-
 
         if (mCamera != null) {
 
@@ -129,7 +126,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                                 mRecordingTime.setText(timeString);
 
                                 /*
-                                 * Update mRecordingTime TextView visibility and mRecordBtn's check state
+                                 * Update mRecordingTime TextView visibility and mRecordToggleBtn's check state
                                  */
                                 if (isVideoRecording) {
                                     mRecordingTime.setVisibility(View.VISIBLE);
@@ -144,52 +141,64 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
         }
 
-        mProduct.getBattery().setBatteryStateUpdateCallback(new DJIBattery.DJIBatteryStateUpdateCallback() {
+
+        DroneFlightMapperApplication.getAircraftInstance().getBattery().setBatteryStateUpdateCallback(new DJIBattery.DJIBatteryStateUpdateCallback() {
             @Override
             public void onResult(DJIBatteryState djiBatteryState) {
                 final int percentage = djiBatteryState.getBatteryEnergyRemainingPercent();
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mBatteryPercentage.setText("Bat: " + String.valueOf(percentage) + "%");
+                        mBatteryPercentage.setText("Battery: " + String.valueOf(percentage) + "%");
                     }
                 });
             }
         });
 
-        if (mFlightController != null) {
-            mFlightController.setUpdateSystemStateCallback(new DJIFlightControllerDelegate.FlightControllerUpdateSystemStateCallback() {
-                @Override
-                public void onResult(DJIFlightControllerCurrentState state) {
-                    if (state.areMotorsOn()) {
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mDebugMsgThree.setText("Motors On");
-                            }
-                        });
-                    } else {
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mDebugMsgThree.setText("Motors Off");
-                            }
-                        });
+
+        DroneFlightMapperApplication.getAircraftInstance().getFlightController().setUpdateSystemStateCallback(new DJIFlightControllerDelegate.FlightControllerUpdateSystemStateCallback() {
+            @Override
+            public void onResult(DJIFlightControllerCurrentState djiFlightControllerCurrentState) {
+
+                droneLocation.setLatitude(djiFlightControllerCurrentState.getAircraftLocation().getLatitude());
+                droneLocation.setLongitude(djiFlightControllerCurrentState.getAircraftLocation().getLongitude());
+                droneLocation.setAltitude(Double.valueOf(df.format(djiFlightControllerCurrentState.getAircraftLocation().getAltitude())));
+                double velocityX = (double) djiFlightControllerCurrentState.getVelocityX();
+                double velocityY = (double) djiFlightControllerCurrentState.getVelocityY();
+                double velocityZ = (double) djiFlightControllerCurrentState.getVelocityZ();
+                droneLocation.setSpeed(Double.valueOf(df.format(Math.sqrt((velocityX * velocityX) + (velocityY * velocityY) + (velocityZ * velocityZ)))));
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mDebugMsgOne.setText(String.valueOf(droneLocation.getLatitude()));
+                        mDebugMsgTwo.setText(String.valueOf(droneLocation.getLongitude()));
+                        mDebugMsgThree.setText("Speed: " + String.valueOf(droneLocation.getSpeed()));
+                        mDebugMsgFour.setText("DebugMsg.");
+                        mDebugMsgFive.setText("DebugMsg.");
+                        mDebugMsgSix.setText(String.valueOf(droneLocation.getAltitude()));
                     }
-                    droneLocation.setLatitude(state.getAircraftLocation().getLatitude());
-                    droneLocation.setLongitude(state.getAircraftLocation().getLongitude());
+                });
+
+
+                if (djiFlightControllerCurrentState.areMotorsOn()) {
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mDebugMsgOne.setText(String.valueOf(droneLocation.getLatitude()));
-                            mDebugMsgTwo.setText(String.valueOf(droneLocation.getLongitude()));
+                            mDebugMsgMotors.setText("Motors On");
+                        }
+                    });
+                } else {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mDebugMsgMotors.setText("Motors Off");
                         }
                     });
                 }
-            });
-        }
-
+            }
+        });
     }
+
 
     protected void onProductChange() {
         initPreviewer();
@@ -233,28 +242,31 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     }
 
     private void initUI() {
-        // init mVideoSurface
         mVideoSurface = (TextureView) findViewById(R.id.video_previewer_surface);
 
         mDebugMsgOne = (TextView) findViewById(R.id.debug_msg_one);
         mDebugMsgTwo = (TextView) findViewById(R.id.debug_msg_two);
         mDebugMsgThree = (TextView) findViewById(R.id.debug_msg_three);
+        mDebugMsgFour = (TextView) findViewById(R.id.debug_msg_four);
+        mDebugMsgFive = (TextView) findViewById(R.id.debug_msg_five);
+        mDebugMsgSix = (TextView) findViewById(R.id.debug_msg_six);
+        mDebugMsgMotors = (TextView) findViewById(R.id.debug_msg_motors);
         mRecordingTime = (TextView) findViewById(timer);
-        mCaptureBtn = (Button) findViewById(R.id.btn_capture);
-        mRecordBtn = (ToggleButton) findViewById(R.id.btn_record);
-        mDebugThreeToggleBtn = (ToggleButton) findViewById(R.id.debug_three_toggle);
-        mDebugOneBtn = (Button) findViewById(R.id.debug_one);
-        mDebugTwoBtn = (Button) findViewById(R.id.debug_two);
         mBatteryPercentage = (TextView) findViewById(R.id.battery_percentage);
+
+        mCaptureBtn = (Button) findViewById(R.id.btn_capture);
+        mRecordToggleBtn = (ToggleButton) findViewById(R.id.btn_record);
+        mDebugOneBtn = (Button) findViewById(R.id.debug_one);
+        mDebugThreeToggleBtn = (ToggleButton) findViewById(R.id.debug_three_toggle);
+        mBlinkToggleBtn = (ToggleButton) findViewById(R.id.blink_toggle);
 
         if (null != mVideoSurface) {
             mVideoSurface.setSurfaceTextureListener(this);
         }
 
         mCaptureBtn.setOnClickListener(this);
-        mRecordBtn.setOnClickListener(this);
+        mRecordToggleBtn.setOnClickListener(this);
         mDebugOneBtn.setOnClickListener(this);
-        mDebugTwoBtn.setOnClickListener(this);
 
         mRecordingTime.setVisibility(View.INVISIBLE);
 
@@ -262,18 +274,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    sender = new Timer();
-                    sender.scheduleAtFixedRate(new TimerTask() {
-                        @Override
-                        public void run() {
-                            if (!isSenderTaskRunning) {
-                                secondaryChild = mDatabase.push().getKey();
-                            }
-                            mDatabase.child("/realtime-flights/").child(secondaryChild).push().setValue(droneLocation);
-                            isSenderTaskRunning = true;
-                        }
-
-                    }, 0, DATA_SEND_SECONDS * 1000);
+                    sendDataToDb();
                 } else {
                     isSenderTaskRunning = false;
                     sender.cancel();
@@ -282,7 +283,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
             }
         });
 
-        mRecordBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mRecordToggleBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -298,7 +299,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
                             @Override
                             public void onFailure(DJIError djiError) {
-                                showToast("Error getting mCamera mode");
+                                showToast("Error getting camera mode");
                             }
                         });
                     }
@@ -307,6 +308,39 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 }
             }
         });
+
+        mBlinkToggleBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    blinkLeds(750);
+                } else {
+                    blinker.cancel();
+                    blinker.purge();
+                    DroneFlightMapperApplication.getAircraftInstance().getFlightController().setLEDsEnabled(true, new DJICommonCallbacks.DJICompletionCallback() {
+                        @Override
+                        public void onResult(DJIError djiError) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void sendDataToDb() {
+        sender = new Timer();
+        sender.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (!isSenderTaskRunning) {
+                    secondaryChild = mDatabase.push().getKey();
+                }
+                mDatabase.child("/realtime-flights/").child(secondaryChild).push().setValue(droneLocation);
+                isSenderTaskRunning = true;
+            }
+
+        }, 0, DATA_SEND_SECONDS * 1000);
     }
 
     private void initPreviewer() {
@@ -399,9 +433,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 break;
             }
 
-            case R.id.debug_two: {
-                blinkLeds(500);
-            }
 
             default:
                 break;
@@ -484,43 +515,38 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
 
     private void blinkLeds(int speed) {
-        if (mProduct != null && mProduct.isConnected()) {
-            if (mProduct instanceof DJIAircraft) {
-                mFlightController = ((DJIAircraft) mProduct).getFlightController();
+        blinker = new Timer();
+        blinker.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                DroneFlightMapperApplication.getAircraftInstance().getFlightController().getLEDsEnabled(new DJICommonCallbacks.DJICompletionCallbackWith<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean aBoolean) {
+                        if (aBoolean) {
+                            DroneFlightMapperApplication.getAircraftInstance().getFlightController().setLEDsEnabled(false, new DJICommonCallbacks.DJICompletionCallback() {
+                                @Override
+                                public void onResult(DJIError djiError) {
+
+                                }
+                            });
+                        } else {
+                            DroneFlightMapperApplication.getAircraftInstance().getFlightController().setLEDsEnabled(true, new DJICommonCallbacks.DJICompletionCallback() {
+                                @Override
+                                public void onResult(DJIError djiError) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(DJIError djiError) {
+
+                    }
+                });
             }
-        }
-        if (mFlightController != null) {
-            new Timer().scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    mFlightController.getLEDsEnabled(new DJICommonCallbacks.DJICompletionCallbackWith<Boolean>() {
-                        @Override
-                        public void onSuccess(Boolean aBoolean) {
-                            if (aBoolean) {
-                                mFlightController.setLEDsEnabled(false, new DJICommonCallbacks.DJICompletionCallback() {
-                                    @Override
-                                    public void onResult(DJIError djiError) {
+        }, 0, speed);
 
-                                    }
-                                });
-                            } else {
-                                mFlightController.setLEDsEnabled(true, new DJICommonCallbacks.DJICompletionCallback() {
-                                    @Override
-                                    public void onResult(DJIError djiError) {
-
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(DJIError djiError) {
-
-                        }
-                    });
-                }
-            }, 0, speed);
-
-        }
     }
 }
+

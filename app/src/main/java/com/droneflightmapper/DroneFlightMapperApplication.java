@@ -125,8 +125,10 @@ public class DroneFlightMapperApplication extends Application {
         return getProductInstance() != null && getProductInstance() instanceof DJIAircraft;
     }
 
-    public static boolean isHandHeldConnected() {
-        return getProductInstance() != null && getProductInstance() instanceof DJIHandHeld;
+
+    public static synchronized DJIAircraft getAircraftInstance() {
+        if (!isAircraftConnected()) return null;
+        return (DJIAircraft) getProductInstance();
     }
 
     public static synchronized DJICamera getCameraInstance() {
@@ -136,10 +138,10 @@ public class DroneFlightMapperApplication extends Application {
         DJICamera camera = null;
 
         if (getProductInstance() instanceof DJIAircraft) {
-            camera = ((DJIAircraft) getProductInstance()).getCamera();
+            camera = getProductInstance().getCamera();
 
         } else if (getProductInstance() instanceof DJIHandHeld) {
-            camera = ((DJIHandHeld) getProductInstance()).getCamera();
+            camera = getProductInstance().getCamera();
         }
 
         return camera;
