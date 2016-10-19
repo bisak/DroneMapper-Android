@@ -3,6 +3,7 @@ package com.droneflightmapper;
 import android.app.Activity;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
@@ -15,10 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,20 +38,24 @@ import dji.sdk.battery.DJIBattery;
 import dji.sdk.camera.DJICamera;
 import dji.sdk.camera.DJICamera.CameraReceivedVideoDataCallback;
 import dji.sdk.codec.DJICodecManager;
+import dji.sdk.flightcontroller.DJICompass;
+import dji.sdk.flightcontroller.DJIFlightController;
 import dji.sdk.flightcontroller.DJIFlightControllerDelegate;
+import dji.sdk.products.DJIAircraft;
 
 import static com.droneflightmapper.R.id.timer;
 
 
 public class MainActivity extends Activity implements SurfaceTextureListener, OnClickListener {
 
-    private static final int DATA_SEND_SECONDS = 2;
+    private static final long DATA_SEND_MILLISECONDS = 1500;
     private static final String TAG = MainActivity.class.getName();
     protected DJICamera.CameraReceivedVideoDataCallback mReceivedVideoDataCallBack = null;
 
     // Codec for video live view
     protected DJICodecManager mCodecManager = null;
-
+    private DJIFlightController mFlightController;
+    private DJICompass mCompass;
     protected TextureView mVideoSurface = null;
     private Button mCaptureBtn, mDebugOneBtn;
     private ToggleButton mRecordToggleBtn;
@@ -62,7 +70,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     private TextView mDebugMsgSix;
     private TextView mDebugMsgMotors;
     private TextView mBatteryPercentage;
-    private DroneLocation droneLocation = new DroneLocation();
+    private DroneLocation droneLocation;
     private DatabaseReference mDatabase;
     private DJICameraSettingsDef.CameraMode currentMode;
     private DJICamera mCamera;
@@ -73,6 +81,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     private Timer sender;
     private Timer blinker;
     private String secondaryChild;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     DecimalFormat df = new DecimalFormat("#.0");
 
     @Override
@@ -83,11 +93,14 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         initUI();
-
         mCamera = DroneFlightMapperApplication.getCameraInstance();
         mProduct = DroneFlightMapperApplication.getProductInstance();
+        mFlightController = ((DJIAircraft) DroneFlightMapperApplication.getProductInstance()).getFlightController();
+        mCompass = mFlightController.getCompass();
+        droneLocation = new DroneLocation();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
 
         // The callback for receiving the raw H264 video data for mCamera live view
@@ -156,7 +169,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
         });
 
 
-        DroneFlightMapperApplication.getAircraftInstance().getFlightController().setUpdateSystemStateCallback(new DJIFlightControllerDelegate.FlightControllerUpdateSystemStateCallback() {
+        mFlightController.setUpdateSystemStateCallback(new DJIFlightControllerDelegate.FlightControllerUpdateSystemStateCallback() {
             @Override
             public void onResult(DJIFlightControllerCurrentState djiFlightControllerCurrentState) {
 
@@ -167,13 +180,16 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 double velocityY = (double) djiFlightControllerCurrentState.getVelocityY();
                 double velocityZ = (double) djiFlightControllerCurrentState.getVelocityZ();
                 droneLocation.setSpeed(Double.valueOf(df.format(Math.sqrt((velocityX * velocityX) + (velocityY * velocityY) + (velocityZ * velocityZ)))));
+                Date date = new Date();
+                droneLocation.setTime(date.getTime() / 1000);
+                droneLocation.setHeading(mCompass.getHeading());
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mDebugMsgOne.setText(String.valueOf(droneLocation.getLatitude()));
                         mDebugMsgTwo.setText(String.valueOf(droneLocation.getLongitude()));
                         mDebugMsgThree.setText("Speed: " + String.valueOf(droneLocation.getSpeed()));
-                        mDebugMsgFour.setText("DebugMsg.");
+                        mDebugMsgFour.setText("HDG" + String.valueOf(droneLocation.getHeading()));
                         mDebugMsgFive.setText("DebugMsg.");
                         mDebugMsgSix.setText(String.valueOf(droneLocation.getAltitude()));
                     }
@@ -197,8 +213,19 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 }
             }
         });
-    }
 
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    mDebugThreeToggleBtn.setEnabled(true);
+                } else {
+                    mDebugThreeToggleBtn.setEnabled(false);
+                }
+            }
+        };
+    }
 
     protected void onProductChange() {
         initPreviewer();
@@ -225,8 +252,16 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
     @Override
     public void onStop() {
-        Log.e(TAG, "onStop");
         super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
     public void onReturn(View view) {
@@ -274,8 +309,9 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    sendDataToDb();
+                    sendDataToDb(droneLocation);
                 } else {
+                    mDatabase.child("/realtime-flights/").child(secondaryChild).removeValue();
                     isSenderTaskRunning = false;
                     sender.cancel();
                     sender.purge();
@@ -328,7 +364,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
         });
     }
 
-    private void sendDataToDb() {
+    private void sendDataToDb(final DroneLocation drloc) {
         sender = new Timer();
         sender.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -336,11 +372,12 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 if (!isSenderTaskRunning) {
                     secondaryChild = mDatabase.push().getKey();
                 }
-                mDatabase.child("/realtime-flights/").child(secondaryChild).push().setValue(droneLocation);
+                mDatabase.child("/realtime-flights/").child(secondaryChild).push().setValue(drloc);
+                mDatabase.child("/saved-flights/").child(secondaryChild).push().setValue(drloc);
                 isSenderTaskRunning = true;
             }
 
-        }, 0, DATA_SEND_SECONDS * 1000);
+        }, 0, DATA_SEND_MILLISECONDS);
     }
 
     private void initPreviewer() {

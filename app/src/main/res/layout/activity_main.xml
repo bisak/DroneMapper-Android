@@ -152,7 +152,6 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:checked="false"
-            android:text="ToggleButton"
             android:textOff="Send"
             android:textOn="Off" />
     </LinearLayout>

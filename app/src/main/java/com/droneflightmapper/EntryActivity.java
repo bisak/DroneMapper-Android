@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.pm.ActivityInfoCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
