@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -43,6 +45,7 @@ import dji.sdk.flightcontroller.DJIFlightController;
 import dji.sdk.flightcontroller.DJIFlightControllerDelegate;
 import dji.sdk.products.DJIAircraft;
 
+import static com.droneflightmapper.R.id.distance_display;
 import static com.droneflightmapper.R.id.timer;
 
 
@@ -70,6 +73,11 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     private TextView mDebugMsgSix;
     private TextView mDebugMsgMotors;
     private TextView mBatteryPercentage;
+    private TextView mHeightDisplay;
+    private TextView mDistanceDisplay;
+    private TextView mHorizontalSpeedDisplay;
+    private TextView mVerticalSpeedDisplay;
+    private TextView mBatteryDisplay;
     private DroneLocation droneLocation;
     private DatabaseReference mDatabase;
     private DJICameraSettingsDef.CameraMode currentMode;
@@ -83,7 +91,12 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     private String secondaryChild;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    DecimalFormat df = new DecimalFormat("#.0");
+    DecimalFormat df = new DecimalFormat("#0.0");
+    double velocityX = 0;
+    double velocityY = 0;
+    double velocityZ = 0;
+    double mHomeLatitude = 181;
+    double mHomeLongitude = 181;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +175,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mBatteryPercentage.setText("Battery: " + String.valueOf(percentage) + "%");
+                        mBatteryDisplay.setText("Batt: " + String.valueOf(percentage) + "%");
                     }
                 });
             }
@@ -171,18 +184,22 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
         mFlightController.setUpdateSystemStateCallback(new DJIFlightControllerDelegate.FlightControllerUpdateSystemStateCallback() {
             @Override
-            public void onResult(DJIFlightControllerCurrentState djiFlightControllerCurrentState) {
+            public void onResult(DJIFlightControllerCurrentState state) {
 
-                droneLocation.setLatitude(djiFlightControllerCurrentState.getAircraftLocation().getLatitude());
-                droneLocation.setLongitude(djiFlightControllerCurrentState.getAircraftLocation().getLongitude());
-                droneLocation.setAltitude(Double.valueOf(df.format(djiFlightControllerCurrentState.getAircraftLocation().getAltitude())));
-                double velocityX = (double) djiFlightControllerCurrentState.getVelocityX();
-                double velocityY = (double) djiFlightControllerCurrentState.getVelocityY();
-                double velocityZ = (double) djiFlightControllerCurrentState.getVelocityZ();
-                droneLocation.setSpeed(Double.valueOf(df.format(Math.sqrt((velocityX * velocityX) + (velocityY * velocityY) + (velocityZ * velocityZ)))));
+                droneLocation.setLatitude(state.getAircraftLocation().getLatitude());
+                droneLocation.setLongitude(state.getAircraftLocation().getLongitude());
+                droneLocation.setAltitude(Double.valueOf(df.format(state.getAircraftLocation().getAltitude())));
+                velocityX = (double) state.getVelocityX();
+                velocityY = (double) state.getVelocityY();
+                velocityZ = (double) state.getVelocityZ();
+                double speed = Math.sqrt((velocityX * velocityX) + (velocityY * velocityY));
+                droneLocation.setSpeed(Double.valueOf(df.format(speed)));
                 Date date = new Date();
                 droneLocation.setTime(date.getTime() / 1000);
                 droneLocation.setHeading(mCompass.getHeading());
+                mHomeLatitude = state.getHomeLocation().getLatitude();
+                mHomeLongitude = state.getHomeLocation().getLongitude();
+
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -192,11 +209,17 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                         mDebugMsgFour.setText("HDG" + String.valueOf(droneLocation.getHeading()));
                         mDebugMsgFive.setText("DebugMsg.");
                         mDebugMsgSix.setText(String.valueOf(droneLocation.getAltitude()));
+
+                        mHorizontalSpeedDisplay.setText("H.S: " + String.valueOf(droneLocation.getSpeed()) + "m/s");
+                        mVerticalSpeedDisplay.setText("V.S: " + String.valueOf(df.format(-velocityZ)) + "m/s"); //TODO fix that!
+                        mHeightDisplay.setText("H: " + String.valueOf(droneLocation.getAltitude() + "m"));
+                        mDistanceDisplay.setText("D: " + String.valueOf(df.format(distFrom((float) droneLocation.getLatitude(), (float) droneLocation.getLongitude(), (float) mHomeLatitude, (float) mHomeLongitude))) + "m");
+
                     }
                 });
 
 
-                if (djiFlightControllerCurrentState.areMotorsOn()) {
+                if (state.areMotorsOn()) {
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -278,7 +301,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
     private void initUI() {
         mVideoSurface = (TextureView) findViewById(R.id.video_previewer_surface);
-
         mDebugMsgOne = (TextView) findViewById(R.id.debug_msg_one);
         mDebugMsgTwo = (TextView) findViewById(R.id.debug_msg_two);
         mDebugMsgThree = (TextView) findViewById(R.id.debug_msg_three);
@@ -288,7 +310,11 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
         mDebugMsgMotors = (TextView) findViewById(R.id.debug_msg_motors);
         mRecordingTime = (TextView) findViewById(timer);
         mBatteryPercentage = (TextView) findViewById(R.id.battery_percentage);
-
+        mHeightDisplay = (TextView) findViewById(R.id.height_display);
+        mDistanceDisplay = (TextView) findViewById(R.id.distance_display);
+        mHorizontalSpeedDisplay = (TextView) findViewById(R.id.horizontal_speed_display);
+        mVerticalSpeedDisplay = (TextView) findViewById(R.id.vertical_speed_display);
+        mBatteryDisplay = (TextView) findViewById(R.id.battery_display);
         mCaptureBtn = (Button) findViewById(R.id.btn_capture);
         mRecordToggleBtn = (ToggleButton) findViewById(R.id.btn_record);
         mDebugOneBtn = (Button) findViewById(R.id.debug_one);
@@ -311,7 +337,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 if (isChecked) {
                     sendDataToDb(droneLocation);
                 } else {
-                    mDatabase.child("/realtime-flights/").child(secondaryChild).removeValue();
+                    mDatabase.child("/realtime-flights/").child(secondaryChild).removeValue(); //TODO ADD THIS TO ONCLOSE , ONSTOP and other overrided methods
                     isSenderTaskRunning = false;
                     sender.cancel();
                     sender.purge();
@@ -584,6 +610,19 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
             }
         }, 0, speed);
 
+    }
+
+    public static float distFrom(float lat1, float lng1, float lat2, float lng2) {
+        double earthRadius = 6371000; //meters
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLng = Math.toRadians(lng2 - lng1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                        Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        float dist = (float) (earthRadius * c);
+
+        return dist;
     }
 }
 
