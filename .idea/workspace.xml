@@ -10,78 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39405032-db7f-4aae-9ac3-6f7191b72e1c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/libs/rxjava-computation-expressions-0.21.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libFREncrypt.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libFlyForbid.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libGroudStation.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libSDKRelativeJNI.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libUpgradeVerify.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libdjivideo.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libstlport_shared.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libudt.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libudtjni.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/arm64-v8a/libyuv2.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libFREncrypt.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libFREncrypt.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libFlyForbid.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libGroudStation.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libSDKRelativeJNI.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libUpgradeVerify.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libdjivideo.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libstlport_shared.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libudt.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libudtjni.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/x86/libyuv2.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/res/raw/iframe_p4p_1344x720.h264" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/res/raw/iframe_p4p_720_16x9.h264" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/res/raw/iframe_p4p_720_3x2.h264" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/res/raw/iframe_p4p_720_4x3.h264" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/rxjava_computation_expressions_0_21_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_core_ui_25_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_core_utils_25_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_fragment_25_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_media_compat_25_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_25_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/transition_25_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/android_android_24.xml" afterPath="$PROJECT_DIR$/.idea/libraries/android_android_25.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_23_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_25_0_0.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_25_0_0.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/design_23_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/design_25_0_0.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_25_0_0.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_25_0_0.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_23_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_compat_25_0_0.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_23_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_25_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/libs/dji-sdk.jar" afterPath="$PROJECT_DIR$/dJISDKLIB/libs/dji-sdk.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libFlyForbid.so" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libFlyForbid.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libGroudStation.so" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libGroudStation.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libSDKRelativeJNI.so" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libSDKRelativeJNI.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libUpgradeVerify.so" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libUpgradeVerify.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libdjivideo.so" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libdjivideo.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libstlport_shared.so" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libstlport_shared.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libudt.so" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libudt.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libudtjni.so" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/jniLibs/armeabi-v7a/libudtjni.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/firebase_analytics_9_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/firebase_analytics_9_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/firebase_analytics_impl_9_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/firebase_analytics_impl_9_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/firebase_database_9_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/firebase_database_9_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/firebase_database_connection_9_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/firebase_database_connection_9_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/firebase_iid_9_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/firebase_iid_9_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/firebase_storage_common_9_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/firebase_storage_common_9_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_base_9_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_base_9_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_basement_9_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_basement_9_4_0.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/droneflightmapper/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/droneflightmapper/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/build.gradle" afterPath="$PROJECT_DIR$/dJISDKLIB/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dJISDKLIB/src/main/res/raw/flyc_param_infos" afterPath="$PROJECT_DIR$/dJISDKLIB/src/main/res/raw/flyc_param_infos" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/import-summary.txt" afterPath="$PROJECT_DIR$/import-summary.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
     </list>
     <ignored path="DroneFlightMapper-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -126,14 +56,14 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="activity_main.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
           <provider editor-type-id="text-editor">
             <state relative-caret-position="1870">
               <caret line="110" column="53" selection-start-line="110" selection-start-column="53" selection-end-line="110" selection-end-column="53" />
               <folding />
             </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2">
-            <state />
           </provider>
         </entry>
       </file>
@@ -150,7 +80,7 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/droneflightmapper/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
+            <state relative-caret-position="4403">
               <caret line="339" column="130" selection-start-line="339" selection-start-column="130" selection-end-line="339" selection-end-column="130" />
               <folding>
                 <element signature="e#4594#5044#0" expanded="true" />
@@ -2904,7 +2834,7 @@
         <subPane />
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2925,7 +2855,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3323,8 +3253,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.51664144" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.48335856" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -3336,8 +3266,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -3362,20 +3292,144 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/droneflightmapper/MainActivity.java</url>
+          <line>61</line>
+          <properties field="mVideoSurface" class="com.droneflightmapper.MainActivity" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="1870">
           <caret line="110" column="53" selection-start-line="110" selection-start-column="53" selection-end-line="110" selection-end-column="53" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/droneflightmapper/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#4594#5044#0" expanded="true" />
+            <element signature="e#5043#5044#0" expanded="true" />
+            <element signature="e#5138#6569#0" expanded="true" />
+            <element signature="e#5808#6513#0" expanded="true" />
+            <element signature="e#6512#6513#0" expanded="true" />
+            <element signature="e#6568#6569#0" expanded="true" />
+            <element signature="e#6687#7211#0" expanded="true" />
+            <element signature="e#6965#7185#0" expanded="true" />
+            <element signature="e#7184#7185#0" expanded="true" />
+            <element signature="e#7210#7211#0" expanded="true" />
+            <element signature="e#7271#10317#0" expanded="true" />
+            <element signature="e#8437#9676#0" expanded="true" />
+            <element signature="e#9675#9676#0" expanded="true" />
+            <element signature="e#10316#10317#0" expanded="true" />
+            <element signature="e#10345#10775#0" expanded="true" />
+            <element signature="e#10774#10775#0" expanded="true" />
+            <element signature="method#onResume#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onPause#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onStop#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onStart#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onReturn#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#13642#14229#0" expanded="true" />
+            <element signature="e#14228#14229#0" expanded="true" />
+            <element signature="e#14285#15468#0" expanded="true" />
+            <element signature="class#14569:15343" expanded="false" />
+            <element signature="method#onSuccess#0;class#14569:15343" expanded="false" />
+            <element signature="method#onFailure#0;class#14569:15343" expanded="false" />
+            <element signature="e#15467#15468#0" expanded="true" />
+            <element signature="e#15523#16205#0" expanded="true" />
+            <element signature="class#15968:16161" expanded="false" />
+            <element signature="method#onResult#0;class#15968:16161" expanded="false" />
+            <element signature="e#16204#16205#0" expanded="true" />
+            <element signature="e#16339#16802#0" expanded="true" />
+            <element signature="e#16801#16802#0" expanded="true" />
+            <element signature="method#initPreviewer#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#16957#16989#0" expanded="true" />
+            <element signature="method#uninitPreviewer#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onSurfaceTextureAvailable#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onSurfaceTextureSizeChanged#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onSurfaceTextureDestroyed#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onSurfaceTextureUpdated#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#showToast#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onClick#0;class#MainActivity#0" expanded="false" />
+            <element signature="class#19035:19762" expanded="false" />
+            <element signature="method#onSuccess#0;class#19035:19762" expanded="false" />
+            <element signature="method#onFailure#0;class#19035:19762" expanded="false" />
+            <element signature="method#switchCameraMode#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#20112#20491#0" expanded="true" />
+            <element signature="e#20490#20491#0" expanded="true" />
+            <element signature="method#captureAction#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#20918#21290#0" expanded="true" />
+            <element signature="e#21289#21290#0" expanded="true" />
+            <element signature="method#startRecord#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#21582#21954#0" expanded="true" />
+            <element signature="e#21953#21954#0" expanded="true" />
+            <element signature="method#stopRecord#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#22147#22522#0" expanded="true" />
+            <element signature="e#22521#22522#0" expanded="true" />
+            <element signature="method#blinkLeds#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#22685#24005#0" expanded="true" />
+            <element signature="class#22865:23979" expanded="false" />
+            <element signature="method#onSuccess#0;class#22865:23979" expanded="false" />
+            <element signature="class#23182:23407" expanded="false" />
+            <element signature="method#onResult#0;class#23182:23407" expanded="false" />
+            <element signature="class#23569:23794" expanded="false" />
+            <element signature="method#onResult#0;class#23569:23794" expanded="false" />
+            <element signature="method#onFailure#0;class#22865:23979" expanded="false" />
+            <element signature="e#24004#24005#0" expanded="true" />
+            <element signature="method#distFrom#0;class#MainActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/droneflightmapper/EntryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/droneflightmapper/DroneLocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="43" column="27" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+          <folding>
+            <element signature="e#982#983#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
       <provider selected="true" editor-type-id="android-designer2">
         <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1870">
+          <caret line="110" column="53" selection-start-line="110" selection-start-column="53" selection-end-line="110" selection-end-column="53" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner.xml">
@@ -3507,13 +3561,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_connection.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
@@ -3548,13 +3602,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_connection.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
@@ -3581,13 +3635,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_connection.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dJISDKLIB/build.gradle">
@@ -3615,14 +3669,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/droneflightmapper/DroneLocation.java">
@@ -3644,19 +3698,19 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="1870">
           <caret line="110" column="53" selection-start-line="110" selection-start-column="53" selection-end-line="110" selection-end-column="53" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/droneflightmapper/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
+        <state relative-caret-position="4403">
           <caret line="339" column="130" selection-start-line="339" selection-start-column="130" selection-end-line="339" selection-end-column="130" />
           <folding>
             <element signature="e#4594#5044#0" expanded="true" />
