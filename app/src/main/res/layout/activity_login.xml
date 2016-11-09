@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
@@ -8,64 +9,84 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.droneflightmapper.LoginActivity">
+    tools:context="com.dronemapper.LoginActivity"
+    android:background="@drawable/common_google_signin_btn_icon_dark_normal">
 
-    <EditText
-        android:id="@+id/input_password"
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/input_email"
-        android:layout_below="@+id/input_email"
-        android:layout_marginTop="31dp"
-        android:ems="10"
-        android:hint="password"
-        android:inputType="textPassword"
-        android:layout_width="250dp" />
-
-    <Button
+        android:text="Register"
+        app:bootstrapBrand="primary"
+        app:bootstrapSize="lg"
+        app:buttonMode="regular"
+        app:roundedCorners="true"
+        app:showOutline="false"
         android:id="@+id/register_button"
-        style="@style/Widget.AppCompat.Button"
+        android:layout_below="@+id/input_password"
+        android:layout_alignEnd="@+id/input_password"
+        android:layout_marginTop="20dp" />
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        app:bootstrapBrand="primary"
+        app:bootstrapSize="lg"
+        app:buttonMode="regular"
+        app:roundedCorners="true"
+        app:showOutline="false"
+        android:id="@+id/login_button"
+        android:layout_alignBaseline="@+id/register_button"
+        android:layout_alignBottom="@+id/register_button"
+        android:layout_alignStart="@+id/input_password" />
+
+    <com.beardedhen.androidbootstrap.BootstrapLabel
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/input_password"
-        android:layout_below="@+id/input_password"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/round_btn"
-        android:text="Register"
-        android:textColor="@android:color/white"
-        android:layout_marginRight="10dp" />
+        app:bootstrapBrand="primary"
+        app:bootstrapHeading="h1"
+        app:roundedCorners="true"
+        android:text="Login / Register"
+        android:id="@+id/bootstrapLabel"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/imageView"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/bootstrapLabel"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/input_email"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
         android:ems="10"
         android:hint="e-mail"
         android:inputType="textEmailAddress"
-        android:layout_width="250dp" />
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:layout_below="@+id/bootstrapLabel"
+        android:layout_marginTop="140dp"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:text="Login or Register"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:id="@+id/textView2"
-        android:contextClickable="true"
-        android:textStyle="normal|bold"
-        android:textSize="19dp" />
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:hint="password"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:textColor="@color/colorBlack"
+        android:cursorVisible="true"
+        android:layout_below="@+id/input_email"
+        android:layout_alignStart="@+id/input_email" />
 
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_btn"
-        android:text="Login"
-        android:textColor="@android:color/white"
-        android:layout_alignStart="@+id/input_password"
-        android:layout_below="@+id/input_password"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp" />
 </RelativeLayout>
