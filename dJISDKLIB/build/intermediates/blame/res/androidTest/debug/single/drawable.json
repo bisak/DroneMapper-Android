@@ -1,26 +1,26 @@
 [
     {
-        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/radio_checked.png",
-        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/radio_checked.png"
+        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/btn_radio_selector.xml",
+        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/btn_radio_selector.xml"
     },
     {
-        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/btn_zoom_selector.xml",
-        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/btn_zoom_selector.xml"
+        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/radio_unchecked.png",
+        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/radio_unchecked.png"
     },
     {
-        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/ic_launcher.png",
-        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/ic_launcher.png"
+        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/btn_zoom_selector.xml",
+        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/btn_zoom_selector.xml"
     },
     {
-        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/radio_unchecked.png",
-        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/radio_unchecked.png"
+        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/btn_lock_selector.xml",
+        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/btn_lock_selector.xml"
     },
     {
-        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/btn_radio_selector.xml",
-        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/btn_radio_selector.xml"
+        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/radio_checked.png",
+        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/radio_checked.png"
     },
     {
-        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/btn_lock_selector.xml",
-        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android BROKEN/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/btn_lock_selector.xml"
+        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/drawable/ic_launcher.png",
+        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/drawable/ic_launcher.png"
     }
 ]

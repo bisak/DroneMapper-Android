@@ -97,12 +97,8 @@ public final class R {
         public static int iframe_848x480=0x7f06000b;
         public static int iframe_960x720_3s=0x7f06000c;
         public static int iframe_cam_cap_4p=0x7f06000d;
-        public static int iframe_p4p_1344x720=0x7f06000e;
-        public static int iframe_p4p_720_16x9=0x7f06000f;
-        public static int iframe_p4p_720_3x2=0x7f060010;
-        public static int iframe_p4p_720_4x3=0x7f060011;
-        public static int iframe_rec_cap_4p=0x7f060012;
-        public static int iframe_wm220_1280x720=0x7f060013;
+        public static int iframe_rec_cap_4p=0x7f06000e;
+        public static int iframe_wm220_1280x720=0x7f06000f;
     }
     public static final class string {
         public static int app_name=0x7f0700c2;

@@ -206,7 +206,7 @@
     <string name="dji_check_vision_sensor_reason_front_right">Forward Right Vision Sensor Error</string>
     <string name="dji_check_vision_vision_reason">Vision System Error</string>
     <string name="fpv_check_redundancy_failed_when_motor_up">IMU Backup Error. Stop Motors and Check IMU Redundancy</string>
-    <string name="version_name">3.3Beta</string>
+    <string name="version_name">3.3</string>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in

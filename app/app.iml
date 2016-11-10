@@ -180,7 +180,6 @@
     <orderEntry type="library" exported="" name="converter-gson-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="rxjava-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="dji_eventbus" level="project" />
-    <orderEntry type="library" exported="" name="rxjava-computation-expressions-0.21.1" level="project" />
     <orderEntry type="library" exported="" name="dji-sdk" level="project" />
   </component>
 </module>
