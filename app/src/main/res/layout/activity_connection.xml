@@ -149,7 +149,7 @@
         app:bootstrapBrand="primary"
         app:bootstrapHeading="h1"
         app:roundedCorners="true"
-        android:text="DroneMapperApp"
+        android:text="DroneMapper"
         android:id="@+id/bootstrapLabel"
         android:layout_marginTop="26dp"
         android:layout_alignParentTop="true"
