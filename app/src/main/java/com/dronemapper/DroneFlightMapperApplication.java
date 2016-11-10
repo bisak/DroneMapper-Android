@@ -68,9 +68,8 @@ public class DroneFlightMapperApplication extends Application {
 
             if (error == DJISDKError.REGISTRATION_SUCCESS) {
                 DJISDKManager.getInstance().startConnectionToProduct();
-
+                Toast.makeText(getApplicationContext(), error.getDescription(), Toast.LENGTH_LONG).show();
             } else {
-
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(new Runnable() {
 
@@ -79,7 +78,6 @@ public class DroneFlightMapperApplication extends Application {
                         Toast.makeText(getApplicationContext(), error.getDescription(), Toast.LENGTH_LONG).show();
                     }
                 });
-
             }
             Log.e("TAG", error.toString());
         }

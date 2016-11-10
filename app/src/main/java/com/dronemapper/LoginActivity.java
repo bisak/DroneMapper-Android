@@ -74,7 +74,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_button: {
-                Uri uri = Uri.parse("http://dronemapper.biskazz.cloudvps.bg/register");
+                Uri uri = Uri.parse("http://dronemapper.sliven.org/register");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
                 /*String email = emailEditText.getText().toString();

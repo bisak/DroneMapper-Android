@@ -48,11 +48,11 @@
         "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/anim/core_push_left_in.xml"
     },
     {
-        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/anim/core_hyperspace_in.xml",
-        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/anim/core_hyperspace_in.xml"
-    },
-    {
         "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/anim/core_hold.xml",
         "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/anim/core_hold.xml"
+    },
+    {
+        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/anim/core_hyperspace_in.xml",
+        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/anim/core_hyperspace_in.xml"
     }
 ]
