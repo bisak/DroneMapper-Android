@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
@@ -216,12 +215,12 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     mTrackBtn.setEnabled(true);
                 } else {
-                    showToast("Log in in order to track flights!");
+                    showToast("Log in to track flights!");
                     mTrackBtn.setEnabled(false);
                 }
             }
