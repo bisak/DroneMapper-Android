@@ -113,5 +113,6 @@
     <orderEntry type="library" exported="" name="rxjava-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="dji_eventbus" level="project" />
     <orderEntry type="library" exported="" name="dji-sdk" level="project" />
+    <orderEntry type="library" exported="" name="android-android-25" level="project" />
   </component>
 </module>

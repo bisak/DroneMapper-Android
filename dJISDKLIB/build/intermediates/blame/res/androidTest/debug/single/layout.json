@@ -1,10 +1,10 @@
 [
     {
-        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/layout/dialog_login.xml",
-        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/layout/dialog_login.xml"
+        "merged": "C:\\CODE\\DroneMapper-Android\\dJISDKLIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\dialog_login.xml",
+        "source": "C:\\CODE\\DroneMapper-Android\\dJISDKLIB\\build\\intermediates\\bundles\\debug\\res\\layout\\dialog_login.xml"
     },
     {
-        "merged": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/res/merged/androidTest/debug/layout/log_dialog_view.xml",
-        "source": "/Users/biskazz/Programming/Github/DroneMapper-Android/dJISDKLIB/build/intermediates/bundles/debug/res/layout/log_dialog_view.xml"
+        "merged": "C:\\CODE\\DroneMapper-Android\\dJISDKLIB\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\log_dialog_view.xml",
+        "source": "C:\\CODE\\DroneMapper-Android\\dJISDKLIB\\build\\intermediates\\bundles\\debug\\res\\layout\\log_dialog_view.xml"
     }
 ]

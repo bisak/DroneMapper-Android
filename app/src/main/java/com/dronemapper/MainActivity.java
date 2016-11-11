@@ -392,8 +392,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
         switch (v.getId()) {
             case R.id.btn_capture: {
-                throw new RuntimeException("This is a crash");
-                /*if (mCamera != null) {
+                if (mCamera != null) {
                     mCamera.getCameraMode(new DJICommonCallbacks.DJICompletionCallbackWith<DJICameraSettingsDef.CameraMode>() {
                         @Override
                         public void onSuccess(DJICameraSettingsDef.CameraMode currentCameraMode) {
@@ -409,7 +408,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                         }
                     });
                 }
-                break;*/
+                break;
             }
 
             case R.id.track_btn: {
