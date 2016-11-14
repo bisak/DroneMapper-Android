@@ -3,7 +3,7 @@
     package="dji.midware.test" >
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="21"
         android:targetSdkVersion="25" />
 
     <instrumentation

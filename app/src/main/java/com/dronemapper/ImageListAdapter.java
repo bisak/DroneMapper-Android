@@ -19,21 +19,16 @@ public class ImageListAdapter extends ArrayAdapter {
     public ImageListAdapter(Context context, ArrayList<String> imageUrls) {
         super(context, R.layout.listview_item_image, imageUrls);
         this.context = context;
-        for (String temp : imageUrls) {
-            this.imageUrls.add(temp);
-        }
+        this.imageUrls = imageUrls;
         inflater = LayoutInflater.from(context);
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (null == convertView) {
             convertView = inflater.inflate(R.layout.listview_item_image, parent, false);
         }
-
         Glide.with(context).load(imageUrls.get(position)).into((ImageView) convertView);
-
         return convertView;
     }
 }

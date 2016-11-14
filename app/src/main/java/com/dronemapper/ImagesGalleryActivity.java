@@ -27,16 +27,15 @@ public class ImagesGalleryActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_images_gallery);
 
-        getSupportActionBar().setTitle("DroneFlightMapper Gallery");
+        getSupportActionBar().setTitle("DroneMapper");
 
         imagesDisplayListView = (ListView) findViewById(R.id.gallery_list_view);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("/images/").addChildEventListener(new ChildEventListener() {
+        mDatabase.child("/images/"+EntryActivity.userId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String url = dataSnapshot.child("thumbnailUrl").getValue().toString();
-                imageUrls.add(url);
-
+                String url = dataSnapshot.child("url").getValue().toString();
+                imageUrls.add(0, url);
                 ImageListAdapter adapter = new ImageListAdapter(ImagesGalleryActivity.this, imageUrls);
                 imagesDisplayListView.setAdapter(adapter);
             }

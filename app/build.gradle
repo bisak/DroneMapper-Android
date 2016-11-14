@@ -5,10 +5,10 @@ android {
     buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId 'com.dronemapper'
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.03 Beta"
+        versionCode 4
+        versionName "1.04 Beta"
         multiDexEnabled true
     }
     buildTypes {

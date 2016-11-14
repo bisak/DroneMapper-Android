@@ -60,7 +60,6 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     private TextView mTextConnectionStatus;
     private TextView mTextProduct;
     protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
-
         @Override
         public void onReceive(Context context, Intent intent) {
             refreshSDKRelativeUI();
@@ -84,6 +83,7 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     private String dbRecordName;
     private String thumbnailUrl;
     private PictureData pictureData;
+    public static String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +108,6 @@ public class EntryActivity extends Activity implements View.OnClickListener {
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Register the broadcast receiver for receiving the device connection's changes.
         IntentFilter filter = new IntentFilter();
         filter.addAction(DroneFlightMapperApplication.FLAG_CONNECTION_CHANGE);
         registerReceiver(mReceiver, filter);
@@ -119,10 +118,16 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    userId = user.getUid();
                     mOpenLoginActivity.setText("Log Out");
                     mSelectImageButton.setEnabled(true);
                     mSelectImageButton.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
+                    mOpenGalleryButton.setEnabled(true);
+                    mOpenGalleryButton.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
                 } else {
+                    userId = "0";
+                    mOpenGalleryButton.setEnabled(false);
+                    mOpenGalleryButton.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
                     mSelectImageButton.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
                     mOpenLoginActivity.setText("Log In");
                     mSelectImageButton.setEnabled(false);
@@ -171,7 +176,6 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     }
 
     private void initUI() {
-
         mTextConnectionStatus = (TextView) findViewById(R.id.text_connection_status);
         mTextProduct = (TextView) findViewById(R.id.text_product_info);
         mBtnOpen = (BootstrapButton) findViewById(R.id.btn_open);
@@ -188,7 +192,6 @@ public class EntryActivity extends Activity implements View.OnClickListener {
         mThumbnailProgressBar = (ProgressBar) findViewById(R.id.thumbnail_upload_progressbar);
         mThumbnailText = (TextView) findViewById(R.id.thumbnail_upload_text);
         mImageText = (TextView) findViewById(R.id.image_upload_text);
-
     }
 
     private void refreshSDKRelativeUI() {
@@ -196,17 +199,12 @@ public class EntryActivity extends Activity implements View.OnClickListener {
 
         if (null != mProduct && mProduct.isConnected()) {
             Log.v(TAG, "refreshSDK: True");
-
-
-            String str = mProduct instanceof DJIAircraft ? "DJIAircraft" : "DJIHandHeld";
-            mTextConnectionStatus.setText(str + " connected");
-
+            mTextConnectionStatus.setText("DJIAircraft connected");
             if (null != mProduct.getModel()) {
                 mTextProduct.setText("" + mProduct.getModel().getDisplayName());
                 mBtnOpen.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
                 mBtnOpen.setEnabled(true);
             }
-
         } else {
             Log.v(TAG, "refreshSDK: False");
             mBtnOpen.setEnabled(false);
@@ -215,7 +213,6 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             mTextConnectionStatus.setText("No Product Connected");
         }
     }
-
 
     @Override
     public void onClick(View v) {
@@ -264,7 +261,6 @@ public class EntryActivity extends Activity implements View.OnClickListener {
 
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
             Uri image = data.getData();
-
             String filePath = getRealPathFromURI(image);
             File file = new File(filePath);
             byte[] thumbnail = makeThumbnail(filePath, PICTURE_WIDTH);
@@ -278,7 +274,7 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     }
 
     private void uploadThumbnail(byte[] thumbnail) {
-        UploadTask thumbnailUpload = mStorage.child("/thumbnails").child(dbRecordName).putBytes(thumbnail);
+        UploadTask thumbnailUpload = mStorage.child("/thumbnails/" + userId).child(dbRecordName).putBytes(thumbnail);
         thumbnailUpload.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
@@ -309,14 +305,18 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     }
 
     private void uploadImage(Uri image) {
-        UploadTask imageUpload = mStorage.child("/images").child(dbRecordName).putFile(image);
+        UploadTask imageUpload = mStorage.child("/images/" + userId).child(dbRecordName).putFile(image);
         imageUpload.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(EntryActivity.this, "Image Upload Done!", Toast.LENGTH_SHORT).show();
-                mainUrl = taskSnapshot.getDownloadUrl().toString();
+                try{
+                    mainUrl = taskSnapshot.getDownloadUrl().toString();
+                }catch(Exception e){
+                    Log.v("hoss", e.toString());
+                }
                 pictureData = new PictureData(longitude, latitude, altitude, fileName, mainUrl, thumbnailUrl);
-                mDatabase.child("/images").child(dbRecordName).setValue(pictureData);
+                mDatabase.child("/images/" + userId).child(dbRecordName).setValue(pictureData);
                 mImageProgressBar.setVisibility(View.INVISIBLE);
                 mImageText.setVisibility(View.INVISIBLE);
                 mSelectImageButton.setEnabled(true);
