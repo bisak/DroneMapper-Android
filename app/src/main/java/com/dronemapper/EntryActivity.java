@@ -29,7 +29,12 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.lang.GeoLocation;
+import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
+import com.drew.metadata.Tag;
+import com.drew.metadata.exif.ExifIFD0Descriptor;
+import com.drew.metadata.exif.ExifIFD0Directory;
+import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.GpsDescriptor;
 import com.drew.metadata.exif.GpsDirectory;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -84,6 +89,7 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     private String thumbnailUrl;
     private PictureData pictureData;
     public static String userId;
+    private String maker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,17 +126,18 @@ public class EntryActivity extends Activity implements View.OnClickListener {
                 if (user != null) {
                     userId = user.getUid();
                     mOpenLoginActivity.setText("Log Out");
-                    mSelectImageButton.setEnabled(true);
                     mSelectImageButton.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
-                    mOpenGalleryButton.setEnabled(true);
                     mOpenGalleryButton.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
+                    mSelectImageButton.setEnabled(true);
+                    mOpenGalleryButton.setEnabled(true);
+
                 } else {
                     userId = "0";
-                    mOpenGalleryButton.setEnabled(false);
                     mOpenGalleryButton.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
                     mSelectImageButton.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
                     mOpenLoginActivity.setText("Log In");
                     mSelectImageButton.setEnabled(false);
+                    mOpenGalleryButton.setEnabled(false);
                 }
             }
         };
@@ -263,12 +270,16 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             Uri image = data.getData();
             String filePath = getRealPathFromURI(image);
             File file = new File(filePath);
-            byte[] thumbnail = makeThumbnail(filePath, PICTURE_WIDTH);
             getMetadata(file);
-            fileName = getFileNameFromURI(image);
-            dbRecordName = mDatabase.push().getKey();
-            uploadThumbnail(thumbnail);
-            uploadImage(image);
+            if(maker.equals("DJI")){
+                byte[] thumbnail = makeThumbnail(filePath, PICTURE_WIDTH);
+                fileName = getFileNameFromURI(image);
+                dbRecordName = mDatabase.push().getKey();
+                uploadThumbnail(thumbnail);
+                uploadImage(image);
+            }else{
+                Toast.makeText(EntryActivity.this, "Only DJI Drone pictures allowed", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -284,7 +295,7 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 thumbnailUrl = taskSnapshot.getDownloadUrl().toString();
-                Toast.makeText(EntryActivity.this, "Thumbnail Upload Done!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EntryActivity.this, "Thumbnail Uploaded", Toast.LENGTH_SHORT).show();
                 mThumbnailProgressBar.setVisibility(View.INVISIBLE);
                 mThumbnailText.setVisibility(View.INVISIBLE);
 
@@ -309,11 +320,11 @@ public class EntryActivity extends Activity implements View.OnClickListener {
         imageUpload.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(EntryActivity.this, "Image Upload Done!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EntryActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
                 try{
                     mainUrl = taskSnapshot.getDownloadUrl().toString();
                 }catch(Exception e){
-                    Log.v("hoss", e.toString());
+                    e.printStackTrace();
                 }
                 pictureData = new PictureData(longitude, latitude, altitude, fileName, mainUrl, thumbnailUrl);
                 mDatabase.child("/images/" + userId).child(dbRecordName).setValue(pictureData);
@@ -343,11 +354,20 @@ public class EntryActivity extends Activity implements View.OnClickListener {
         try {
             Metadata metadata = ImageMetadataReader.readMetadata(file);
             GpsDirectory gpsDirectory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
-            GpsDescriptor gpsDescriptor = new GpsDescriptor(gpsDirectory);
-            GeoLocation geoLocation = gpsDirectory.getGeoLocation();
-            latitude = geoLocation.getLatitude();
-            longitude = geoLocation.getLongitude();
-            altitude = Double.parseDouble(gpsDescriptor.getGpsAltitudeDescription().split(" ")[0]);
+            ExifIFD0Directory exifDirectory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
+            ExifIFD0Descriptor descriptor = new ExifIFD0Descriptor(exifDirectory);
+            if(gpsDirectory != null) {
+                GpsDescriptor gpsDescriptor = new GpsDescriptor(gpsDirectory);
+                GeoLocation geoLocation = gpsDirectory.getGeoLocation();
+                latitude = geoLocation.getLatitude();
+                longitude = geoLocation.getLongitude();
+                altitude = Double.parseDouble(gpsDescriptor.getGpsAltitudeDescription().split(" ")[0]);
+            }
+            if(exifDirectory != null){
+                maker = exifDirectory.getDescription(ExifSubIFDDirectory.TAG_MAKE);
+            }else{
+                maker = "";
+            }
         } catch (ImageProcessingException | IOException e) {
             e.printStackTrace();
         }
@@ -357,7 +377,6 @@ public class EntryActivity extends Activity implements View.OnClickListener {
         int height = width * 9 / 16;
         Bitmap initialBitmap = BitmapFactory.decodeFile(filePath);
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(initialBitmap, width, height, true);
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         return baos.toByteArray();

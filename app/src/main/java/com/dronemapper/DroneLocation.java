@@ -9,6 +9,7 @@ public class DroneLocation {
     public double heading;
     public float distance;
 
+
     public DroneLocation() {
     }
 
