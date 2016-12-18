@@ -132,9 +132,16 @@ public class DroneFlightMapperApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mHandler = new Handler(Looper.getMainLooper());
-        //This is used to start SDK services and initiate SDK.
-        DJISDKManager.getInstance().initSDKManager(this, mDJISDKManagerCallback);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mHandler = new Handler(Looper.getMainLooper());
+                DJISDKManager.getInstance().initSDKManager(DroneFlightMapperApplication.this, mDJISDKManagerCallback);
+            }
+        }, 5000);
+
+        /*TODO fix this probably with broadcast when permissions are granted.*/
     }
 
     private void notifyStatusChange() {
