@@ -9,14 +9,14 @@
         android:layout_height="30dp"
         android:orientation="horizontal"
         android:background="@drawable/rounded_corner"
-        android:layout_width="500dp"
+        android:layout_width="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/height_display"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Height:"
@@ -24,11 +24,13 @@
             android:textAlignment="center"
             android:textStyle="normal|bold"
             android:textSize="18sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
 
         <TextView
             android:id="@+id/distance_display"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Distance:"
@@ -36,11 +38,13 @@
             android:textAlignment="center"
             android:textStyle="normal|bold"
             android:textSize="18sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
 
         <TextView
             android:id="@+id/vertical_speed_display"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="V.S:"
@@ -48,11 +52,13 @@
             android:textAlignment="center"
             android:textStyle="normal|bold"
             android:textSize="18sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
 
         <TextView
             android:id="@+id/horizontal_speed_display"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="H.S:"
@@ -60,11 +66,13 @@
             android:textAlignment="center"
             android:textStyle="normal|bold"
             android:textSize="18sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
 
         <TextView
             android:text="Battery:"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/battery_display"
             android:layout_weight="1"
@@ -72,7 +80,9 @@
             android:textStyle="normal|bold"
             android:textColor="@android:color/white"
             android:gravity="center"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
     </LinearLayout>
 
     <TextureView
@@ -103,7 +113,7 @@
             app:showOutline="true"
             app:roundedCorners="true"
             android:id="@+id/btn_capture"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="wrap_content"
@@ -132,7 +142,7 @@
 
     <TextView
         android:id="@+id/timer"
-        android:layout_width="30dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="33dp"

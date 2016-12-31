@@ -74,7 +74,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_button: {
-                Uri uri = Uri.parse("http://dronemapper.sliven.org/register");
+                Uri uri = Uri.parse("http://dronemapper.sliven.org/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
                 /*String email = emailEditText.getText().toString();
@@ -87,7 +87,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, "Register Failed", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(LoginActivity.this, "Register Successfull", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Register Successful", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });*/
@@ -96,13 +96,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.login_button: {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                if(email.length()>5 && password.length()>5) {
+                if (email.length() > 5 && password.length() > 5) {
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                                     }

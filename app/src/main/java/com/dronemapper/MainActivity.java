@@ -3,15 +3,17 @@ package com.dronemapper;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.SurfaceTexture;
+import android.media.AudioManager;
+import android.media.MediaActionSound;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SoundEffectConstants;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
@@ -21,8 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -43,7 +43,8 @@ import dji.sdk.codec.DJICodecManager;
 import dji.sdk.flightcontroller.DJICompass;
 import dji.sdk.flightcontroller.DJIFlightController;
 import dji.sdk.flightcontroller.DJIFlightControllerDelegate;
-import dji.sdk.products.DJIAircraft;
+
+import static com.dronemapper.Helper.*;
 
 import static com.dronemapper.R.id.timer;
 
@@ -54,6 +55,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     private static final String TAG = MainActivity.class.getName();
     protected DJICamera.CameraReceivedVideoDataCallback mReceivedVideoDataCallBack = null;
 
+    private Helper helper = new Helper();
     protected DJICodecManager mCodecManager = null;
     private DJIFlightController mFlightController;
     private DJICompass mCompass;
@@ -67,7 +69,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     private TextView mHorizontalSpeedDisplay;
     private TextView mVerticalSpeedDisplay;
     private TextView mBatteryDisplay;
-    private DroneLocation droneLocation;
+    private DroneLocation droneLocation = new DroneLocation();
     private DatabaseReference mDatabase;
     private DJICamera mCamera;
     private DJIBaseProduct mProduct;
@@ -81,166 +83,21 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     private double velocityZ = 0;
     private double mHomeLatitude = 181;
     private double mHomeLongitude = 181;
-    private boolean isSenderTaskRunning = false;
+    private boolean isTrackingActive = false;
     private boolean isHomePointSet = false;
-    private boolean isRecordButtonToggled = false;
-    private boolean isTrackButtonToggled = false;
+    private boolean isRecordingVideo = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        TypefaceProvider.registerDefaultIconSets();
-        setContentView(R.layout.activity_main);
         initUI();
-
-        try {
-            Runtime.getRuntime().exec("logcat -f" + " /sdcard/DroneFlightMapperLog.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        mCamera = DroneFlightMapperApplication.getCameraInstance();
-        mProduct = DroneFlightMapperApplication.getProductInstance();
-        mFlightController = ((DJIAircraft) mProduct).getFlightController();
-        mCompass = mFlightController.getCompass();
-        droneLocation = new DroneLocation();
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
-
-
-        // The callback for receiving the raw H264 video data for mCamera live view
-        mReceivedVideoDataCallBack = new CameraReceivedVideoDataCallback() {
-
-            @Override
-            public void onResult(byte[] videoBuffer, int size) {
-                if (mCodecManager != null) {
-                    // Send the raw H264 video data to codec manager for decoding
-                    mCodecManager.sendDataToDecoder(videoBuffer, size);
-                } else {
-                    Log.e(TAG, "mCodecManager is null");
-                }
-            }
-        };
-        if (mCamera != null) {
-            mCamera.setDJICameraUpdatedSystemStateCallback(new DJICamera.CameraUpdatedSystemStateCallback() {
-                @Override
-                public void onResult(CameraSystemState cameraSystemState) {
-                    if (null != cameraSystemState) {
-
-                        int recordTime = cameraSystemState.getCurrentVideoRecordingTimeInSeconds();
-                        int minutes = (recordTime % 3600) / 60;
-                        int seconds = recordTime % 60;
-
-                        final String timeString = String.format("%02d:%02d", minutes, seconds);
-                        final boolean isVideoRecording = cameraSystemState.isRecording();
-
-                        MainActivity.this.runOnUiThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                mRecordingTime.setText(timeString);
-                                if (isVideoRecording) {
-                                    mRecordingTime.setVisibility(View.VISIBLE);
-                                    mRecordBtn.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
-                                } else {
-                                    mRecordingTime.setVisibility(View.INVISIBLE);
-                                    mRecordBtn.setBootstrapBrand(DefaultBootstrapBrand.SECONDARY);
-                                }
-                            }
-                        });
-                    }
-                }
-            });
-
-        }
-
-        DroneFlightMapperApplication.getAircraftInstance().getBattery().setBatteryStateUpdateCallback(new DJIBattery.DJIBatteryStateUpdateCallback() {
-            @Override
-            public void onResult(DJIBatteryState djiBatteryState) {
-                final int percentage = djiBatteryState.getBatteryEnergyRemainingPercent();
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mBatteryDisplay.setText("Batt: " + String.valueOf(percentage) + "%"); //TODO check text displays not to move when changing values
-                    }
-                });
-            }
-        });
-
-        mFlightController.setUpdateSystemStateCallback(new DJIFlightControllerDelegate.FlightControllerUpdateSystemStateCallback() {
-            @Override
-            public void onResult(DJIFlightControllerCurrentState state) {
-                droneLocation.setLatitude(state.getAircraftLocation().getLatitude());
-                droneLocation.setLongitude(state.getAircraftLocation().getLongitude());
-                droneLocation.setAltitude(Double.valueOf(df.format(state.getAircraftLocation().getAltitude())));
-                velocityX = (double) state.getVelocityX();
-                velocityY = (double) state.getVelocityY();
-                velocityZ = (double) state.getVelocityZ();
-                if (velocityZ != 0) {
-                    velocityZ = -velocityZ;
-                }
-                double speed = Math.sqrt((velocityX * velocityX) + (velocityY * velocityY));
-                droneLocation.setSpeed(Double.valueOf(df.format(speed)));
-                droneLocation.setTime(new Date().getTime() / 1000);
-                droneLocation.setHeading(mCompass.getHeading());
-                if (state.isHomePointSet()) {
-                    isHomePointSet = true;
-                    mHomeLatitude = state.getHomeLocation().getLatitude();
-                    mHomeLongitude = state.getHomeLocation().getLongitude();
-                    float distanceFromhome = distFrom((float) droneLocation.getLatitude(), (float) droneLocation.getLongitude(), (float) mHomeLatitude, (float) mHomeLongitude);
-                    droneLocation.setDistance(Float.valueOf(df.format(distanceFromhome)));
-                } else {
-                    isHomePointSet = false;
-                }
-
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isHomePointSet) {
-                            mDistanceDisplay.setTextColor(Color.GREEN);
-                        } else {
-                            mDistanceDisplay.setTextColor(Color.RED);
-                        }
-                        mHorizontalSpeedDisplay.setText("H.S: " + String.valueOf(droneLocation.getSpeed()) + "m/s");
-                        mVerticalSpeedDisplay.setText("V.S: " + String.valueOf(df.format(velocityZ)) + "m/s");
-                        mHeightDisplay.setText("H: " + String.valueOf(droneLocation.getAltitude() + "m"));
-                        mDistanceDisplay.setText("D: " + String.valueOf(droneLocation.getDistance() + "m"));
-                    }
-                });
-            }
-        });
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    mTrackBtn.setEnabled(true);
-                } else {
-                    showToast("Log in to track flights!");
-                    mTrackBtn.setEnabled(false);
-                }
-            }
-        };
-
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread thread, Throwable e) {
-                e.printStackTrace();
-                if (isSenderTaskRunning) {
-                    mDatabase.child("/realtime-flights/").child(secondaryChild).removeValue();
-                    sendTimer.cancel();
-                    sendTimer.purge();
-                    mTrackBtn.setBootstrapBrand(DefaultBootstrapBrand.SECONDARY);
-                    isSenderTaskRunning = false;
-                }
-
-                System.exit(1);
-            }
-        });
+        initComponents();
+        handleCameraRecordingState();
+        handleCrashes();
+        handleLiveVideoFeed();
+        displayBatteryPercentage();
+        handleFlightData();
+        handleUserStatus();
     }
 
     protected void onProductChange() {
@@ -263,7 +120,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     @Override
     public void onStop() {
         super.onStop();
-
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
@@ -276,6 +132,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
         mAuth.addAuthStateListener(mAuthListener);
     }
 
+
     public void onReturn(View view) {
         this.finish();
     }
@@ -284,22 +141,15 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     protected void onDestroy() {
         uninitPreviewer();
         super.onDestroy();
-        if (isSenderTaskRunning) {
-            mDatabase.child("/realtime-flights/").child(secondaryChild).removeValue();
-            sendTimer.cancel();
-            sendTimer.purge();
-            mTrackBtn.setBootstrapBrand(DefaultBootstrapBrand.SECONDARY);
-            isSenderTaskRunning = false;
-        }
-        try {
-            File file = new File("/sdcard/DroneFlightMapperLog.txt");
-            file.delete();
-        } catch (Exception e) {
-        }
-
+        stopTrackingAction();
     }
 
     private void initUI() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        TypefaceProvider.registerDefaultIconSets();
+        setContentView(R.layout.activity_main);
+
         mVideoSurface = (TextureView) findViewById(R.id.video_previewer_surface);
         mRecordingTime = (TextView) findViewById(timer);
         mHeightDisplay = (TextView) findViewById(R.id.height_display);
@@ -324,16 +174,14 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     }
 
     private void initPreviewer() {
-
-
         if (mProduct == null || !mProduct.isConnected()) {
-            showToast(getString(R.string.disconnected));
+            showToast(getApplicationContext(), getString(R.string.disconnected));
         } else {
             if (null != mVideoSurface) {
                 mVideoSurface.setSurfaceTextureListener(this);
             }
             if (!mProduct.getModel().equals(Model.UnknownAircraft)) {
-                DJICamera camera = mProduct.getCamera();
+                DJICamera camera = DroneFlightMapperApplication.getCameraInstance();
                 if (camera != null) {
                     // Set the callback
                     camera.setDJICameraReceivedVideoDataCallback(mReceivedVideoDataCallBack);
@@ -343,10 +191,9 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     }
 
     private void uninitPreviewer() {
-        DJICamera camera = DroneFlightMapperApplication.getCameraInstance();
-        if (camera != null) {
+        if (mCamera != null) {
             // Reset the callback
-            DroneFlightMapperApplication.getCameraInstance().setDJICameraReceivedVideoDataCallback(null);
+            mCamera.setDJICameraReceivedVideoDataCallback(null);
         }
     }
 
@@ -370,7 +217,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
             mCodecManager.cleanSurface();
             mCodecManager = null;
         }
-
         return false;
     }
 
@@ -378,88 +224,30 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
     }
 
-    public void showToast(final String msg) {
-        runOnUiThread(new Runnable() {
-            public void run() {
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
             case R.id.btn_capture: {
-                if (mCamera != null) {
-                    mCamera.getCameraMode(new DJICommonCallbacks.DJICompletionCallbackWith<DJICameraSettingsDef.CameraMode>() {
-                        @Override
-                        public void onSuccess(DJICameraSettingsDef.CameraMode currentCameraMode) {
-                            if (currentCameraMode != DJICameraSettingsDef.CameraMode.ShootPhoto) {
-                                switchCameraMode(DJICameraSettingsDef.CameraMode.ShootPhoto);
-                            }
-                            captureAction();
-                        }
-
-                        @Override
-                        public void onFailure(DJIError djiError) {
-                            showToast("Error getting mCamera mode");
-                        }
-                    });
-                }
+                capturePhoto();
                 break;
             }
 
             case R.id.track_btn: {
-                isTrackButtonToggled = !isTrackButtonToggled;
-                if (isTrackButtonToggled) {
-                    sendTimer = new Timer();
-                    sendTimer.scheduleAtFixedRate(new TimerTask() {
-                        @Override
-                        public void run() {
-                            if (!isSenderTaskRunning) {
-                                secondaryChild = mDatabase.push().getKey();
-                            }
-                            mDatabase.child("/realtime-flights/").child(secondaryChild).push().setValue(droneLocation);
-                            mDatabase.child("/saved-flights/").child(secondaryChild).push().setValue(droneLocation);
-                            isSenderTaskRunning = true;
-                        }
-
-                    }, 0, DATA_SEND_MILLISECONDS);
-                    mTrackBtn.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
+                v.playSoundEffect(SoundEffectConstants.CLICK);
+                if (!isTrackingActive) {
+                    startTrackingAction();
                 } else {
-                    if (isSenderTaskRunning) {
-                        mDatabase.child("/realtime-flights/").child(secondaryChild).removeValue();
-                        sendTimer.cancel();
-                        sendTimer.purge();
-                        mTrackBtn.setBootstrapBrand(DefaultBootstrapBrand.SECONDARY);
-                        isSenderTaskRunning = false;
-                    }
+                    stopTrackingAction();
                 }
                 break;
             }
 
             case R.id.btn_record: {
-                isRecordButtonToggled = !isRecordButtonToggled;
-                if (isRecordButtonToggled) {
-                    if (mCamera != null) {
-                        mCamera.getCameraMode(new DJICommonCallbacks.DJICompletionCallbackWith<DJICameraSettingsDef.CameraMode>() {
-                            @Override
-                            public void onSuccess(DJICameraSettingsDef.CameraMode currentCameraMode) {
-                                if (currentCameraMode != DJICameraSettingsDef.CameraMode.RecordVideo) {
-                                    switchCameraMode(DJICameraSettingsDef.CameraMode.RecordVideo);
-                                }
-                                startRecord();
-                            }
-
-                            @Override
-                            public void onFailure(DJIError djiError) {
-                                showToast("Error getting camera mode");
-                            }
-                        });
-                    }
+                if (!isRecordingVideo) {
+                    captureVideo();
                 } else {
-                    stopRecord();
+                    stopVideoCapture();
                 }
             }
 
@@ -474,9 +262,9 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 @Override
                 public void onResult(DJIError error) {
                     if (error == null) {
-                        //showToast("Switch Camera Mode Succeeded");
+                        playMediaSound(MediaActionSound.FOCUS_COMPLETE);
                     } else {
-                        showToast(error.getDescription());
+                        showToast(getApplicationContext(), error.getDescription());
                     }
                 }
             });
@@ -484,60 +272,163 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     }
 
     // Method for taking photo
-    private void captureAction() {
-
-        DJICameraSettingsDef.CameraMode cameraMode = DJICameraSettingsDef.CameraMode.ShootPhoto;
-
+    private void capturePhotoAction() {
         if (mCamera != null) {
-
             DJICameraSettingsDef.CameraShootPhotoMode photoMode = DJICameraSettingsDef.CameraShootPhotoMode.Single; // Set the mCamera capture mode as Single mode
             mCamera.startShootPhoto(photoMode, new DJICommonCallbacks.DJICompletionCallback() {
-
                 @Override
                 public void onResult(DJIError error) {
                     if (error == null) {
-                        showToast("Sucessfully took photo.");
+                        playMediaSound(MediaActionSound.SHUTTER_CLICK);
                     }
                 }
-
-            }); // Execute the startShootPhoto API
+            });
         }
     }
 
     // Method for starting recording
-    private void startRecord() {
-
-        DJICameraSettingsDef.CameraMode cameraMode = DJICameraSettingsDef.CameraMode.RecordVideo;
+    private void captureVideoAction() {
         if (mCamera != null) {
             mCamera.startRecordVideo(new DJICommonCallbacks.DJICompletionCallback() {
                 @Override
                 public void onResult(DJIError error) {
                     if (error == null) {
-                        showToast("Started recording video.");
+                        playMediaSound(MediaActionSound.START_VIDEO_RECORDING);
+                    } else {
+                        showToast(getApplicationContext(), error.getDescription());
                     }
                 }
-            }); // Execute the startRecordVideo API
+            });
         }
     }
 
     // Method for stopping recording
-    private void stopRecord() {
-
+    private void stopVideoCapture() {
         if (mCamera != null) {
             mCamera.stopRecordVideo(new DJICommonCallbacks.DJICompletionCallback() {
 
                 @Override
                 public void onResult(DJIError error) {
                     if (error == null) {
-                        showToast("Stopped recording video.");
+                        playMediaSound(MediaActionSound.STOP_VIDEO_RECORDING);
+                    } else {
+                        showToast(getApplicationContext(), error.getDescription());
                     }
                 }
-            }); // Execute the stopRecordVideo API
+            });
         }
     }
 
+    private void capturePhoto() {
+        if (mCamera != null) {
+            mCamera.getCameraMode(new DJICommonCallbacks.DJICompletionCallbackWith<DJICameraSettingsDef.CameraMode>() {
+                @Override
+                public void onSuccess(DJICameraSettingsDef.CameraMode currentCameraMode) {
+                    if (currentCameraMode != DJICameraSettingsDef.CameraMode.ShootPhoto) {
+                        switchCameraMode(DJICameraSettingsDef.CameraMode.ShootPhoto);
+                    }
+                    capturePhotoAction();
+                }
 
-    public static float distFrom(float lat1, float lng1, float lat2, float lng2) {
+                @Override
+                public void onFailure(DJIError djiError) {
+                    showToast(getApplicationContext(), "Error getting camera mode");
+                }
+            });
+        }
+    }
+
+    private void captureVideo() {
+        if (mCamera != null) {
+            mCamera.getCameraMode(new DJICommonCallbacks.DJICompletionCallbackWith<DJICameraSettingsDef.CameraMode>() {
+                @Override
+                public void onSuccess(DJICameraSettingsDef.CameraMode currentCameraMode) {
+                    if (currentCameraMode != DJICameraSettingsDef.CameraMode.RecordVideo) {
+                        switchCameraMode(DJICameraSettingsDef.CameraMode.RecordVideo);
+                    }
+                    captureVideoAction();
+                }
+
+                @Override
+                public void onFailure(DJIError djiError) {
+                    showToast(getApplicationContext(), "Error getting camera mode");
+                }
+            });
+        }
+    }
+
+    private void handleCameraRecordingState() {
+        if (mCamera != null) {
+            mCamera.setDJICameraUpdatedSystemStateCallback(new DJICamera.CameraUpdatedSystemStateCallback() {
+                @Override
+                public void onResult(CameraSystemState cameraSystemState) {
+                    if (null != cameraSystemState) {
+                        int recordTime = cameraSystemState.getCurrentVideoRecordingTimeInSeconds();
+                        int minutes = (recordTime % 3600) / 60;
+                        int seconds = recordTime % 60;
+                        final String timeString = String.format("%02d:%02d", minutes, seconds);
+                        isRecordingVideo = cameraSystemState.isRecording();
+                        MainActivity.this.runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                mRecordingTime.setText(timeString);
+                                if (isRecordingVideo) {
+                                    mRecordingTime.setVisibility(View.VISIBLE);
+                                    mRecordBtn.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
+                                } else {
+                                    mRecordingTime.setVisibility(View.INVISIBLE);
+                                    mRecordBtn.setBootstrapBrand(DefaultBootstrapBrand.SECONDARY);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    public void startTrackingAction() {
+        if (!isTrackingActive) {
+            sendTimer = new Timer();
+            sendTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (!isTrackingActive) {
+                        secondaryChild = mDatabase.push().getKey();
+                    }
+                    mDatabase.child("/realtime-flights/").child(secondaryChild).push().setValue(droneLocation);
+                    mDatabase.child("/saved-flights/").child(secondaryChild).push().setValue(droneLocation);
+                }
+
+            }, 0, DATA_SEND_MILLISECONDS);
+            mTrackBtn.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
+            isTrackingActive = true;
+        }
+    }
+
+    public void stopTrackingAction() {
+        if (isTrackingActive) {
+            mDatabase.child("/realtime-flights/").child(secondaryChild).removeValue();
+            sendTimer.cancel();
+            sendTimer.purge();
+            mTrackBtn.setBootstrapBrand(DefaultBootstrapBrand.SECONDARY);
+            isTrackingActive = false;
+        }
+    }
+
+    public void handleCrashes() {
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable e) {
+                e.printStackTrace();
+                stopTrackingAction();
+                System.exit(1);
+            }
+        });
+    }
+
+    public static double distFrom(double lat1, double lng1, double lat2, double lng2) {
         double earthRadius = 6371000; //meters
         double dLat = Math.toRadians(lat2 - lat1);
         double dLng = Math.toRadians(lng2 - lng1);
@@ -545,9 +436,109 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                 Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
                         Math.sin(dLng / 2) * Math.sin(dLng / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        float dist = (float) (earthRadius * c);
-
+        double dist = (earthRadius * c);
         return dist;
     }
-}
 
+    public void displayBatteryPercentage() {
+        DJIBattery battery = DroneFlightMapperApplication.getAircraftInstance().getBattery();
+        battery.setBatteryStateUpdateCallback(new DJIBattery.DJIBatteryStateUpdateCallback() {
+            @Override
+            public void onResult(DJIBatteryState djiBatteryState) {
+                final int percentage = djiBatteryState.getBatteryEnergyRemainingPercent();
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBatteryDisplay.setText("Bat: " + String.valueOf(percentage) + "%");
+                    }
+                });
+            }
+        });
+    }
+
+    public void handleLiveVideoFeed() {
+        // The callback for receiving the raw H264 video data for mCamera live view
+        mReceivedVideoDataCallBack = new CameraReceivedVideoDataCallback() {
+
+            @Override
+            public void onResult(byte[] videoBuffer, int size) {
+                if (mCodecManager != null) {
+                    // Send the raw H264 video data to codec manager for decoding
+                    mCodecManager.sendDataToDecoder(videoBuffer, size);
+                } else {
+                    Log.e(TAG, "mCodecManager is null");
+                }
+            }
+        };
+    }
+
+    public void handleUserStatus() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    mTrackBtn.setEnabled(true);
+                } else {
+                    showToast(getApplicationContext(), "Log in to track flights!");
+                    mTrackBtn.setEnabled(false);
+                }
+            }
+        };
+    }
+
+    public void handleFlightData() {
+        mFlightController.setUpdateSystemStateCallback(new DJIFlightControllerDelegate.FlightControllerUpdateSystemStateCallback() {
+            @Override
+            public void onResult(DJIFlightControllerCurrentState state) {
+                droneLocation.setLatitude(state.getAircraftLocation().getLatitude());
+                droneLocation.setLongitude(state.getAircraftLocation().getLongitude());
+                droneLocation.setAltitude(Double.valueOf(df.format(state.getAircraftLocation().getAltitude())));
+                velocityX = (double) state.getVelocityX();
+                velocityY = (double) state.getVelocityY();
+                velocityZ = (double) state.getVelocityZ();
+                if (velocityZ != 0) {
+                    velocityZ = -velocityZ;
+                }
+                double speed = Math.sqrt((velocityX * velocityX) + (velocityY * velocityY));
+                droneLocation.setSpeed(Double.valueOf(df.format(speed)));
+                droneLocation.setTime(new Date().getTime() / 1000);
+                droneLocation.setHeading(mCompass.getHeading());
+                if (state.isHomePointSet()) {
+                    isHomePointSet = true;
+                    mHomeLatitude = state.getHomeLocation().getLatitude();
+                    mHomeLongitude = state.getHomeLocation().getLongitude();
+                    double distanceFromhome = distFrom(droneLocation.getLatitude(), droneLocation.getLongitude(), mHomeLatitude, mHomeLongitude);
+                    droneLocation.setDistance(Double.valueOf(df.format(distanceFromhome)));
+                } else {
+                    isHomePointSet = false;
+                }
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isHomePointSet) {
+                            mDistanceDisplay.setTextColor(Color.GREEN);
+                        } else {
+                            mDistanceDisplay.setTextColor(Color.RED);
+                        }
+                        mHorizontalSpeedDisplay.setText("H.S: " + String.valueOf(droneLocation.getSpeed()) + "m/s");
+                        mVerticalSpeedDisplay.setText("V.S: " + String.valueOf(df.format(velocityZ)) + "m/s");
+                        mHeightDisplay.setText("H: " + String.valueOf(droneLocation.getAltitude() + "m"));
+                        mDistanceDisplay.setText("D: " + String.valueOf(droneLocation.getDistance() + "m"));
+                    }
+                });
+            }
+        });
+    }
+
+    public void initComponents() {
+        mCamera = DroneFlightMapperApplication.getCameraInstance();
+        mProduct = DroneFlightMapperApplication.getProductInstance();
+        mFlightController = DroneFlightMapperApplication.getFlightControllerInstance();
+        mCompass = mFlightController.getCompass();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+    }
+}

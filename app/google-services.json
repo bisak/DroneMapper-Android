@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "439163309533",
-    "firebase_url": "https://dronemapper-2.firebaseio.com",
-    "project_id": "dronemapper-2",
-    "storage_bucket": "dronemapper-2.appspot.com"
+    "project_number": "915987875489",
+    "firebase_url": "https://dronemapper-83b1a.firebaseio.com",
+    "project_id": "dronemapper-83b1a",
+    "storage_bucket": "dronemapper-83b1a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:439163309533:android:e5bcdfba38d2ade2",
+        "mobilesdk_app_id": "1:915987875489:android:e5bcdfba38d2ade2",
         "android_client_info": {
           "package_name": "com.dronemapper"
         }
       },
       "oauth_client": [
         {
-          "client_id": "439163309533-hp0g92grlct6q04q66efije8r2b4c8pk.apps.googleusercontent.com",
+          "client_id": "915987875489-2qgnoequ640cafs3d45sl04hkmsph3kc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dronemapper",
+            "certificate_hash": "9679AADEDA90F134E54D350343F5002CF3583075"
+          }
+        },
+        {
+          "client_id": "915987875489-rtv3kcosic0428qa856q4821eph4q5ud.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAaN6iXqnK4frFFw5XAagXCiaS6aLuT1QA"
+          "current_key": "AIzaSyAmn7plwKwEFx_UlqcML4jMt_Kc929yOxA"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915987875489-rtv3kcosic0428qa856q4821eph4q5ud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

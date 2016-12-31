@@ -7,13 +7,13 @@ public class DroneLocation {
     public double speed;
     public long time;
     public double heading;
-    public float distance;
+    public double distance;
 
 
     public DroneLocation() {
     }
 
-    public DroneLocation(double longitude, double latitude, double altitude, double speed, long time, double heading, float distance ) {
+    public DroneLocation(double longitude, double latitude, double altitude, double speed, long time, double heading, double distance) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
@@ -31,11 +31,11 @@ public class DroneLocation {
         this.heading = heading;
     }
 
-    public float getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
@@ -58,7 +58,6 @@ public class DroneLocation {
     public double getAltitude() {
         return altitude;
     }
-
 
     public void setAltitude(double altitude) {
         this.altitude = altitude;
