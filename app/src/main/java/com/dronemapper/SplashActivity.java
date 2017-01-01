@@ -6,16 +6,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import static com.dronemapper.Helper.startErrorLog;
+import static com.dronemapper.util.Helper.startErrorLog;
 
 public class SplashActivity extends AppCompatActivity {
-
-    Helper helper = new Helper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         startErrorLog();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -192,7 +192,7 @@ public class EntryActivity extends Activity implements View.OnClickListener {
 
         if (null != mProduct && mProduct.isConnected()) {
             Log.v(TAG, "refreshSDK: True");
-            mTextConnectionStatus.setText("DJIAircraft connected");
+            mTextConnectionStatus.setText("Drone connected");
             if (null != mProduct.getModel()) {
                 mTextProduct.setText("" + mProduct.getModel().getDisplayName());
                 mBtnOpen.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
@@ -203,7 +203,7 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             mBtnOpen.setEnabled(false);
             mBtnOpen.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
             mTextProduct.setText("");
-            mTextConnectionStatus.setText("No Product Connected");
+            mTextConnectionStatus.setText("No Drone Connected");
         }
     }
 
@@ -251,23 +251,21 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
             Uri image = data.getData();
             String filePath = getRealPathFromURI(image);
             File file = new File(filePath);
             getMetadata(file);
-            if(maker.equals("DJI")){
+            if (maker.equals("DJI")) {
                 byte[] thumbnail = makeThumbnail(filePath, PICTURE_WIDTH);
                 fileName = getFileNameFromURI(image);
                 dbRecordName = mDatabase.push().getKey();
                 uploadThumbnail(thumbnail);
                 uploadImage(image);
-            }else{
+            } else {
                 Toast.makeText(EntryActivity.this, "Only DJI Drone pictures allowed", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     private void uploadThumbnail(byte[] thumbnail) {
@@ -307,9 +305,9 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(EntryActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
-                try{
+                try {
                     mainUrl = taskSnapshot.getDownloadUrl().toString();
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 pictureData = new PictureData(longitude, latitude, altitude, fileName, mainUrl, thumbnailUrl);
@@ -342,16 +340,16 @@ public class EntryActivity extends Activity implements View.OnClickListener {
             GpsDirectory gpsDirectory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
             ExifIFD0Directory exifDirectory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
             ExifIFD0Descriptor descriptor = new ExifIFD0Descriptor(exifDirectory);
-            if(gpsDirectory != null) {
+            if (gpsDirectory != null) {
                 GpsDescriptor gpsDescriptor = new GpsDescriptor(gpsDirectory);
                 GeoLocation geoLocation = gpsDirectory.getGeoLocation();
                 latitude = geoLocation.getLatitude();
                 longitude = geoLocation.getLongitude();
                 altitude = Double.parseDouble(gpsDescriptor.getGpsAltitudeDescription().split(" ")[0]);
             }
-            if(exifDirectory != null){
+            if (exifDirectory != null) {
                 maker = exifDirectory.getDescription(ExifSubIFDDirectory.TAG_MAKE);
-            }else{
+            } else {
                 maker = "";
             }
         } catch (ImageProcessingException | IOException e) {

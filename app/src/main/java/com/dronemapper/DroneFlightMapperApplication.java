@@ -19,7 +19,7 @@ import dji.sdk.flightcontroller.DJIFlightController;
 import dji.sdk.products.DJIAircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
-import static com.dronemapper.Helper.showToast;
+import static com.dronemapper.util.Helper.showToast;
 
 
 public class DroneFlightMapperApplication extends Application {

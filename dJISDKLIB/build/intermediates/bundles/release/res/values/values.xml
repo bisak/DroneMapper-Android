@@ -118,7 +118,7 @@
     <string name="dji_check_fc_takeoff_failed_compass_noise_too_large">Compass\'s noise is too high. Please restart the aircraft. Contact DJI Support if the error persists</string>
     <string name="dji_check_fc_takeoff_failed_device_locked">Device Locked</string>
     <string name="dji_check_fc_takeoff_failed_device_topology_exception">Device Topology Error. Restart and Check Connection.</string>
-    <string name="dji_check_fc_takeoff_failed_distance_limit">The distance between the aircraft and the Home Point is greater than the pre-set maximum distance. The aircraft cannot takeoff.</string>
+    <string name="dji_check_fc_takeoff_failed_distance_limit">The distanceFromHome between the aircraft and the Home Point is greater than the pre-set maximum distanceFromHome. The aircraft cannot takeoff.</string>
     <string name="dji_check_fc_takeoff_failed_esc_error">ESC status error. Please restart the aircraft. Contact DJI Support if the error persists</string>
     <string name="dji_check_fc_takeoff_failed_fail_invalid_SN">Invalid Serial Number</string>
     <string name="dji_check_fc_takeoff_failed_flash_operation">FLASH Operating</string>
@@ -208,14 +208,10 @@
     <string name="fpv_check_redundancy_failed_when_motor_up">IMU Backup Error. Stop Motors and Check IMU Redundancy</string>
     <string name="version_name">3.3Beta</string>
     <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+        
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        
     </style>
     <style name="DialogTheme" parent="android:Theme.Dialog">
         <item name="android:windowNoTitle">true</item>

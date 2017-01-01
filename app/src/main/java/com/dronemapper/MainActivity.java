@@ -3,11 +3,9 @@ package com.dronemapper;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.SurfaceTexture;
-import android.media.AudioManager;
 import android.media.MediaActionSound;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.SoundEffectConstants;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
@@ -24,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,11 +37,11 @@ import dji.sdk.battery.DJIBattery;
 import dji.sdk.camera.DJICamera;
 import dji.sdk.camera.DJICamera.CameraReceivedVideoDataCallback;
 import dji.sdk.codec.DJICodecManager;
-import dji.sdk.flightcontroller.DJICompass;
 import dji.sdk.flightcontroller.DJIFlightController;
 import dji.sdk.flightcontroller.DJIFlightControllerDelegate;
 
-import static com.dronemapper.Helper.*;
+import static com.dronemapper.util.Helper.*;
+import static com.dronemapper.util.MainActivityHelper.*;
 
 import static com.dronemapper.R.id.timer;
 
@@ -55,10 +52,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
     private static final String TAG = MainActivity.class.getName();
     protected DJICamera.CameraReceivedVideoDataCallback mReceivedVideoDataCallBack = null;
 
-    private Helper helper = new Helper();
     protected DJICodecManager mCodecManager = null;
     private DJIFlightController mFlightController;
-    private DJICompass mCompass;
     protected TextureView mVideoSurface = null;
     private BootstrapButton mCaptureBtn;
     private BootstrapButton mRecordBtn;
@@ -125,13 +120,11 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
         }
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
-
 
     public void onReturn(View view) {
         this.finish();
@@ -226,7 +219,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.btn_capture: {
                 capturePhoto();
@@ -234,7 +226,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
             }
 
             case R.id.track_btn: {
-                v.playSoundEffect(SoundEffectConstants.CLICK);
+                /*v.playSoundEffect(SoundEffectConstants.CLICK); Play click sound on click */
                 if (!isTrackingActive) {
                     startTrackingAction();
                 } else {
@@ -428,18 +420,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
         });
     }
 
-    public static double distFrom(double lat1, double lng1, double lat2, double lng2) {
-        double earthRadius = 6371000; //meters
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLng = Math.toRadians(lng2 - lng1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-                        Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double dist = (earthRadius * c);
-        return dist;
-    }
-
     public void displayBatteryPercentage() {
         DJIBattery battery = DroneFlightMapperApplication.getAircraftInstance().getBattery();
         battery.setBatteryStateUpdateCallback(new DJIBattery.DJIBatteryStateUpdateCallback() {
@@ -493,23 +473,21 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
             public void onResult(DJIFlightControllerCurrentState state) {
                 droneLocation.setLatitude(state.getAircraftLocation().getLatitude());
                 droneLocation.setLongitude(state.getAircraftLocation().getLongitude());
-                droneLocation.setAltitude(Double.valueOf(df.format(state.getAircraftLocation().getAltitude())));
+                droneLocation.setAltitude(state.getAircraftLocation().getAltitude());
                 velocityX = (double) state.getVelocityX();
                 velocityY = (double) state.getVelocityY();
                 velocityZ = (double) state.getVelocityZ();
-                if (velocityZ != 0) {
-                    velocityZ = -velocityZ;
-                }
+                velocityZ = (velocityZ != 0) ? -velocityZ : velocityZ;
                 double speed = Math.sqrt((velocityX * velocityX) + (velocityY * velocityY));
-                droneLocation.setSpeed(Double.valueOf(df.format(speed)));
-                droneLocation.setTime(new Date().getTime() / 1000);
-                droneLocation.setHeading(mCompass.getHeading());
+                droneLocation.setSpeed(speed);
+                droneLocation.setTimestamp(getUnixTimestamp());
+                droneLocation.setHeading(state.getAircraftHeadDirection());
                 if (state.isHomePointSet()) {
                     isHomePointSet = true;
                     mHomeLatitude = state.getHomeLocation().getLatitude();
                     mHomeLongitude = state.getHomeLocation().getLongitude();
-                    double distanceFromhome = distFrom(droneLocation.getLatitude(), droneLocation.getLongitude(), mHomeLatitude, mHomeLongitude);
-                    droneLocation.setDistance(Double.valueOf(df.format(distanceFromhome)));
+                    double distanceFromHome = distBetweenCoords(droneLocation.getLatitude(), droneLocation.getLongitude(), mHomeLatitude, mHomeLongitude);
+                    droneLocation.setDistanceFromHome(distanceFromHome);
                 } else {
                     isHomePointSet = false;
                 }
@@ -522,10 +500,10 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
                         } else {
                             mDistanceDisplay.setTextColor(Color.RED);
                         }
-                        mHorizontalSpeedDisplay.setText("H.S: " + String.valueOf(droneLocation.getSpeed()) + "m/s");
-                        mVerticalSpeedDisplay.setText("V.S: " + String.valueOf(df.format(velocityZ)) + "m/s");
-                        mHeightDisplay.setText("H: " + String.valueOf(droneLocation.getAltitude() + "m"));
-                        mDistanceDisplay.setText("D: " + String.valueOf(droneLocation.getDistance() + "m"));
+                        mHorizontalSpeedDisplay.setText(String.format("H.S: %1$.1f m/s", droneLocation.getSpeed()));
+                        mVerticalSpeedDisplay.setText(String.format("V.S: %1$.1f m/s", velocityZ));
+                        mHeightDisplay.setText(String.format("H: %1$.1f m", droneLocation.getAltitude()));
+                        mDistanceDisplay.setText(String.format("D: %1$.1f m", droneLocation.getDistanceFromHome()));
                     }
                 });
             }
@@ -536,7 +514,6 @@ public class MainActivity extends Activity implements SurfaceTextureListener, On
         mCamera = DroneFlightMapperApplication.getCameraInstance();
         mProduct = DroneFlightMapperApplication.getProductInstance();
         mFlightController = DroneFlightMapperApplication.getFlightControllerInstance();
-        mCompass = mFlightController.getCompass();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();

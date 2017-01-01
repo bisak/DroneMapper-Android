@@ -92,7 +92,7 @@
     <string name="dji_check_fc_takeoff_failed_compass_error">Compass error, calibration required</string>
     <string name="dji_check_fc_takeoff_failed_assistant_protected">Please disconnect the USB cable from your aircraft</string>
     <string name="dji_check_fc_takeoff_failed_device_locked">Device Locked</string>
-    <string name="dji_check_fc_takeoff_failed_distance_limit">The distance between the aircraft and the Home Point is greater than the pre-set maximum distance. The aircraft cannot takeoff.</string>
+    <string name="dji_check_fc_takeoff_failed_distance_limit">The distanceFromHome between the aircraft and the Home Point is greater than the pre-set maximum distanceFromHome. The aircraft cannot takeoff.</string>
     <string name="dji_check_fc_takeoff_failed_imu_need_calibration">Please check the aircraft’s status</string>
     <string name="dji_check_fc_takeoff_failed_imu_sn_error">Please contact DJI support</string>
     <string name="dji_check_fc_takeoff_failed_imu_warming">IMU warming up, wait before taking off</string>

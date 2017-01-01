@@ -1,26 +1,25 @@
 package com.dronemapper;
 
 public class DroneLocation {
-    public double longitude;
-    public double latitude;
-    public double altitude;
-    public double speed;
-    public long time;
-    public double heading;
-    public double distance;
-
+    private double longitude;
+    private double latitude;
+    private double altitude;
+    private double speed;
+    private long timestamp;
+    private double heading;
+    private double distanceFromHome;
 
     public DroneLocation() {
     }
 
-    public DroneLocation(double longitude, double latitude, double altitude, double speed, long time, double heading, double distance) {
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.altitude = altitude;
-        this.speed = speed;
-        this.time = time;
+    public DroneLocation(double longitude, double latitude, double altitude, double speed, long time, double heading, double distanceFromHome) {
+        this.longitude = Math.round(longitude * 1000000d) / 1000000d;
+        this.latitude = Math.round(latitude * 1000000d) / 1000000d;
+        this.altitude = Math.round(altitude * 100d) / 100d;
+        this.speed = Math.round(speed * 100d) / 100d;
+        this.distanceFromHome = Math.round(distanceFromHome * 100d) / 100d;
+        this.timestamp = time;
         this.heading = heading;
-        this.distance = distance;
     }
 
     public double getHeading() {
@@ -31,36 +30,37 @@ public class DroneLocation {
         this.heading = heading;
     }
 
-    public double getDistance() {
-        return distance;
+    public double getDistanceFromHome() {
+        return distanceFromHome;
     }
 
-    public void setDistance(double distance) {
-        this.distance = distance;
+    public void setDistanceFromHome(double distanceFromHome) {
+        this.distanceFromHome = Math.round(distanceFromHome * 100d) / 100d;
     }
 
     public void setSpeed(double speed) {
-        this.speed = speed;
+        this.speed = Math.round(speed * 100d) / 100d;
     }
 
     public double getSpeed() {
         return speed;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public long getTime() {
-        return time;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
+
 
     public double getAltitude() {
         return altitude;
     }
 
     public void setAltitude(double altitude) {
-        this.altitude = altitude;
+        this.altitude = Math.round(altitude * 100d) / 100d;
     }
 
     public double getLongitude() {
@@ -68,7 +68,7 @@ public class DroneLocation {
     }
 
     public void setLongitude(double longitude) {
-        this.longitude = longitude;
+        this.longitude = Math.round(longitude * 1000000d) / 1000000d;
     }
 
     public double getLatitude() {
@@ -76,6 +76,6 @@ public class DroneLocation {
     }
 
     public void setLatitude(double latitude) {
-        this.latitude = latitude;
+        this.latitude = Math.round(latitude * 1000000d) / 1000000d;
     }
 }
