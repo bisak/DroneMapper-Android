@@ -208,10 +208,14 @@
     <string name="fpv_check_redundancy_failed_when_motor_up">IMU Backup Error. Stop Motors and Check IMU Redundancy</string>
     <string name="version_name">3.3Beta</string>
     <style name="AppBaseTheme" parent="android:Theme.Light">
-        
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
-        
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     <style name="DialogTheme" parent="android:Theme.Dialog">
         <item name="android:windowNoTitle">true</item>

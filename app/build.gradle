@@ -7,8 +7,8 @@ android {
         applicationId 'com.dronemapper'
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 9
-        versionName "1.09 Pre-Beta"
+        versionCode 10
+        versionName "1.10 Pre-Beta"
         multiDexEnabled true
     }
     buildTypes {

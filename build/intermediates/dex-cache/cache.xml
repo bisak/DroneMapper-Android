@@ -79,7 +79,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="b8a9fc54c399d33649df855f50835a053d0626bc">
+        sha1="8ce072d011baa2fad9ff5c752699ac8211a0b1ab">
         <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_d76a04ee80cfe450eb94968064e430076247734c/classes.dex" />
     </item>
     <item
@@ -187,7 +187,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="ce5331933e224d38a23ad38c77996ff6ccf82c56">
+        sha1="5ecb55356905526cef6e8e9b47687cbab4fbc45c">
         <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_f48d0f4798f17bca6df621ba366faf618a7665e5/classes.dex" />
     </item>
     <item

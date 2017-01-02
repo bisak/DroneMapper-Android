@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+
 import static com.dronemapper.util.Helper.startErrorLog;
 
 public class SplashActivity extends AppCompatActivity {

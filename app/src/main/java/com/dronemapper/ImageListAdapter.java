@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 public class ImageListAdapter extends ArrayAdapter {
-    ArrayList<String> imageUrls = new ArrayList<>();
+    private ArrayList<String> imageUrls = new ArrayList<>();
     private Context context;
     private LayoutInflater inflater;
 
@@ -20,15 +20,15 @@ public class ImageListAdapter extends ArrayAdapter {
         super(context, R.layout.listview_item_image, imageUrls);
         this.context = context;
         this.imageUrls = imageUrls;
-        inflater = LayoutInflater.from(context);
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (null == convertView) {
-            convertView = inflater.inflate(R.layout.listview_item_image, parent, false);
+            convertView = this.inflater.inflate(R.layout.listview_item_image, parent, false);
         }
-        Glide.with(context).load(imageUrls.get(position)).into((ImageView) convertView);
+        Glide.with(this.context).load(imageUrls.get(position)).into((ImageView) convertView);
         return convertView;
     }
 }

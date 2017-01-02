@@ -7,17 +7,83 @@ public class PictureData {
     public String url;
     public String name;
     public String thumbnailUrl;
+    public String description;
+    public String droneTaken;
+    public String dateEdited;
+    public String dateTaken;
+    public String dateUploaded;
+    public String cameraModel;
+    public String resolution;
+    public String maker;
 
     public PictureData() {
+        this.dateEdited = " - ";
+        this.description = " - ";
+        this.droneTaken = " - ";
     }
 
-    public PictureData(double longt, double lat, double alt, String name, String url, String thumbnailUrl) {
-        this.longt = longt;
-        this.lat = lat;
-        this.alt = alt;
-        this.url = url;
-        this.name = name;
-        this.thumbnailUrl = thumbnailUrl;
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
+    }
+
+    public String getResolution() {
+        return resolution;
+    }
+
+    public void setMaker(String maker) {
+        this.maker = maker;
+    }
+
+    public String getMaker() {
+        return maker;
+    }
+
+    public void setCameraModel(String cameraModel) {
+        this.cameraModel = cameraModel;
+    }
+
+    public void setDateEdited(String dateEdited) {
+        this.dateEdited = dateEdited;
+    }
+
+    public void setDateTaken(String dateTaken) {
+        this.dateTaken = dateTaken;
+    }
+
+    public void setDateUploaded(String dateUploaded) {
+        this.dateUploaded = dateUploaded;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDroneTaken(String droneTaken) {
+        this.droneTaken = droneTaken;
+    }
+
+    public String getCameraModel() {
+        return cameraModel;
+    }
+
+    public String getDateEdited() {
+        return dateEdited;
+    }
+
+    public String getDateTaken() {
+        return dateTaken;
+    }
+
+    public String getDateUploaded() {
+        return dateUploaded;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDroneTaken() {
+        return droneTaken;
     }
 
     public double getAlt() {
@@ -67,5 +133,4 @@ public class PictureData {
     public void setUrl(String url) {
         this.url = url;
     }
-
 }

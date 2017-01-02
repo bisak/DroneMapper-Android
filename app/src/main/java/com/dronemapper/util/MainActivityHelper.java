@@ -1,5 +1,7 @@
 package com.dronemapper.util;
 
+import android.media.MediaActionSound;
+
 import java.util.Date;
 
 public class MainActivityHelper {
@@ -14,12 +16,16 @@ public class MainActivityHelper {
                 Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
                         Math.sin(dLng / 2) * Math.sin(dLng / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double dist = (earthRadius * c);
-        return dist;
+        return (earthRadius * c);
     }
 
-    public static long getUnixTimestamp() {
+    public static long getTimestamp() {
         Date date = new Date();
         return date.getTime() / 1000;
+    }
+
+    public static void playMediaSound(int soundId) {
+        MediaActionSound sound = new MediaActionSound();
+        sound.play(soundId);
     }
 }

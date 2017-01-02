@@ -1,7 +1,6 @@
 package com.dronemapper.util;
 
 import android.content.Context;
-import android.media.MediaActionSound;
 import android.os.Environment;
 import android.os.Handler;
 import android.widget.Toast;
@@ -33,11 +32,6 @@ public class Helper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void playMediaSound(int soundId) {
-        MediaActionSound sound = new MediaActionSound();
-        sound.play(soundId);
     }
 
     public static void showToast(final Context context, final String msg) {

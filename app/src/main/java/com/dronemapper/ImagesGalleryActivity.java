@@ -19,6 +19,7 @@ public class ImagesGalleryActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private ListView imagesDisplayListView;
     private int mLastFirstVisibleItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class ImagesGalleryActivity extends AppCompatActivity {
 
         imagesDisplayListView = (ListView) findViewById(R.id.gallery_list_view);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("/images/"+EntryActivity.userId).addChildEventListener(new ChildEventListener() {
+        mDatabase.child("/images/" + EntryActivity.userId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String url = dataSnapshot.child("url").getValue().toString();

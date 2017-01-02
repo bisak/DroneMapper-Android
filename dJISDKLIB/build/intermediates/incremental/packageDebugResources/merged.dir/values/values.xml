@@ -118,7 +118,7 @@
     <string name="dji_check_fc_takeoff_failed_compass_noise_too_large">Compass\'s noise is too high. Please restart the aircraft. Contact DJI Support if the error persists</string>
     <string name="dji_check_fc_takeoff_failed_device_locked">Device Locked</string>
     <string name="dji_check_fc_takeoff_failed_device_topology_exception">Device Topology Error. Restart and Check Connection.</string>
-    <string name="dji_check_fc_takeoff_failed_distance_limit">The distance between the aircraft and the Home Point is greater than the pre-set maximum distance. The aircraft cannot takeoff.</string>
+    <string name="dji_check_fc_takeoff_failed_distance_limit">The distanceFromHome between the aircraft and the Home Point is greater than the pre-set maximum distanceFromHome. The aircraft cannot takeoff.</string>
     <string name="dji_check_fc_takeoff_failed_esc_error">ESC status error. Please restart the aircraft. Contact DJI Support if the error persists</string>
     <string name="dji_check_fc_takeoff_failed_fail_invalid_SN">Invalid Serial Number</string>
     <string name="dji_check_fc_takeoff_failed_flash_operation">FLASH Operating</string>
