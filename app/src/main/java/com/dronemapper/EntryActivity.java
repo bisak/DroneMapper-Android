@@ -73,19 +73,9 @@ public class EntryActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initUI();
-
-        mStorage = FirebaseStorage.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
-
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(DroneFlightMapperApplication.FLAG_CONNECTION_CHANGE);
-        registerReceiver(mReceiver, filter);
-
-        handleUserStatus();
-
+        initFirebase();
+        handleConnectionBroadcast();
     }
 
     @Override
@@ -132,7 +122,6 @@ public class EntryActivity extends Activity implements View.OnClickListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         TypefaceProvider.registerDefaultIconSets();
         setContentView(R.layout.activity_connection);
-
 
         mTextConnectionStatus = (TextView) findViewById(R.id.text_connection_status);
         mTextProduct = (TextView) findViewById(R.id.text_product_info);
@@ -300,7 +289,11 @@ public class EntryActivity extends Activity implements View.OnClickListener {
         mDatabase.child("/images/" + userId).child(dbRecordName).setValue(pictureData);
     }
 
-    private void handleUserStatus() {
+    private void initFirebase() {
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -323,6 +316,11 @@ public class EntryActivity extends Activity implements View.OnClickListener {
                 }
             }
         };
+    }
+
+    private void handleConnectionBroadcast(){
+        IntentFilter filter = new IntentFilter(DroneFlightMapperApplication.FLAG_CONNECTION_CHANGE);
+        registerReceiver(mReceiver, filter);
     }
 
 }

@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class EntryActivityHelper {
 
@@ -39,7 +40,7 @@ public class EntryActivityHelper {
             ExifSubIFDDirectory exifSubDirectory = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
 
             if (gpsDirectory != null && exifDirectory != null && exifSubDirectory != null) {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", Locale.getDefault()); //TODO test with getDefault locale.
                 Date date = new Date();
                 GeoLocation geoLocation = gpsDirectory.getGeoLocation();
 

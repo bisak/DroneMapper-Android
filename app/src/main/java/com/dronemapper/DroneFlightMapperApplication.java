@@ -1,7 +1,10 @@
 package com.dronemapper;
 
 import android.app.Application;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -27,7 +30,12 @@ public class DroneFlightMapperApplication extends Application {
     public static final String FLAG_CONNECTION_CHANGE = "dronemapper_connection_change";
 
     private static DJIBaseProduct mProduct;
-
+    protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            initSDK();
+        }
+    };
     private Handler mHandler;
 
     private DJIComponentListener mDJIComponentListener = new DJIComponentListener() {
@@ -118,6 +126,11 @@ public class DroneFlightMapperApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        IntentFilter filter = new IntentFilter(SplashActivity.FLAG_PERMISSIONS_GRANTED);
+        registerReceiver(mReceiver, filter);
+    }
+
+    public void initSDK() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -125,7 +138,7 @@ public class DroneFlightMapperApplication extends Application {
                 mHandler = new Handler(Looper.getMainLooper());
                 DJISDKManager.getInstance().initSDKManager(DroneFlightMapperApplication.this, mDJISDKManagerCallback);
             }
-        }, 5000);
+        }, 250);
     }
 
     private void notifyStatusChange() {

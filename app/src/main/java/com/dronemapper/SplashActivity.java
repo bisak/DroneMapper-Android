@@ -11,6 +11,8 @@ import static com.dronemapper.util.Helper.startErrorLog;
 
 public class SplashActivity extends AppCompatActivity {
 
+    public static final String FLAG_PERMISSIONS_GRANTED = "dronemapper_permissions_granted";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +37,20 @@ public class SplashActivity extends AppCompatActivity {
         switch (requestCode) {
             case 1: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(this, EntryActivity.class);
-                    startActivity(intent);
+                    permissionsGranted();
                     finish();
-                }else{
+                } else {
                     finish();
                 }
             }
         }
+    }
+
+    private void permissionsGranted() {
+        Intent startActivityIntent = new Intent(this, EntryActivity.class);
+        startActivity(startActivityIntent);
+
+        Intent grantedPermissionsIntent = new Intent(FLAG_PERMISSIONS_GRANTED);
+        sendBroadcast(grantedPermissionsIntent);
     }
 }

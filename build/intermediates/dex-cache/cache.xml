@@ -12,15 +12,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database/10.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="8f128aeeb7e31271b28a7adb9dac1f3a6ed9f5e7">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-10.0.1_cdc32e62f2654b6bc2e2de5e766b785b0fbc5e37/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/rxandroid-1.1.0.jar"
         jumboMode="true"
         optimize="true"
@@ -57,15 +48,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/biseratanasov/.gradle/caches/modules-2/files-2.1/com.adobe.xmp/xmpcore/5.1.2/55615fa2582424e38705487d1d3969af8554f637/xmpcore-5.1.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="55615fa2582424e38705487d1d3969af8554f637">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/xmpcore-5.1.2_27d1a3c1e7ecc34a87c07e13e495298148c67ba7/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -75,11 +57,191 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-multidex-1.0.1_b695154ac464b006a9acf3bc27e5c7fcd6b2a92e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database-connection/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8010ae6ed32828a145b25ec97bc07b7a83c6318f">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-connection-10.0.1_8e0eb8880cabae6291e1d6c9202355e5da06d130/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/design/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="30103d98fa5ed824b54af839c85e2111f9bde8ec">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-25.1.0_3072f92985acde16db0b912a2f6c033d7c7d682b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/rxjava-1.1.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d4f11e8e7dd89f5f87e5d81000582eabb071da91">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/rxjava-1.1.2_d241391ce988304ed19a913b3b10fa17bcd53da3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/retrofit-2.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b55150f9b025eebdddb6426bb4e85e673af338a3">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/retrofit-2.0.1_643491602b9015470d40b2a0a201e97d5d1041c3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/dji_eventbus.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="91a5399115cedf41ebd53be7c96e424ac3aed1a8">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/dji_eventbus_d7a167c463b75f405907751d9d2c05d79fb10957/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.1.0_9dcce87000134773713b3b82936cfd0b5c818dd7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.1.0_65fd6c80b1b2ee2e8f735ce351af9e6197fad60d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9cca2818594cc5348806d6662133491e7ea0fa8d">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-10.0.1_682d3f8add27ac042ff3fd1103d1dfe2751c1fc6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/dji-sdk.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1caeea6670e86792065a293010f09555d21d05e8">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/dji-sdk_e4bae2c95acb6198f3dfbd2c82ab375c447b41ea/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/dji_gson.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="729a9cf81838d286b6098dc9c33d264d5db48a26">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/dji_gson_296e619be96624d59eb0ca84b37cf716f105e90f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_f3a3d3b80da6981001f6fb2937d182839f05ef4b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.0_7968b3c062f8acc99e708c567a9865c41fe65721/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-10.0.1_37747b79ee3e49a4ab018322affd5e66595ddde9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/converter-gson-2.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="56caaeea09d3e406f6160972ff5d3e6c0e6f139b">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/converter-gson-2.0.1_2a305e0b1325ec3c7e519560766f538c7ba4ce80/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6fb6ac3e8d3b9013819920d9ea11f3803c4c0033">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.0_782cff6dfdfc1248f50b84dcdff03b5cf324853f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/okio-1.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="58a92147e3365aa0039fc81a31b87f4957e6a555">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/okio-1.7.0_c7111b56237b21b8f3e3291a40aa0a0a2caf3388/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.0_7dae5945de31dfbebbf04f811068d7f47de34064/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8f128aeeb7e31271b28a7adb9dac1f3a6ed9f5e7">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-10.0.1_cdc32e62f2654b6bc2e2de5e766b785b0fbc5e37/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/biseratanasov/.gradle/caches/modules-2/files-2.1/com.adobe.xmp/xmpcore/5.1.2/55615fa2582424e38705487d1d3969af8554f637/xmpcore-5.1.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="55615fa2582424e38705487d1d3969af8554f637">
+        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/xmpcore-5.1.2_27d1a3c1e7ecc34a87c07e13e495298148c67ba7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="8ce072d011baa2fad9ff5c752699ac8211a0b1ab">
+        sha1="a9dde71b9c7f12709a41156964bae60cbf52831e">
         <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_d76a04ee80cfe450eb94968064e430076247734c/classes.dex" />
     </item>
     <item
@@ -129,51 +291,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-multidex-1.0.1_b695154ac464b006a9acf3bc27e5c7fcd6b2a92e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database-connection/10.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="8010ae6ed32828a145b25ec97bc07b7a83c6318f">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-connection-10.0.1_8e0eb8880cabae6291e1d6c9202355e5da06d130/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/design/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="30103d98fa5ed824b54af839c85e2111f9bde8ec">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-25.1.0_3072f92985acde16db0b912a2f6c033d7c7d682b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/rxjava-1.1.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d4f11e8e7dd89f5f87e5d81000582eabb071da91">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/rxjava-1.1.2_d241391ce988304ed19a913b3b10fa17bcd53da3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/retrofit-2.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b55150f9b025eebdddb6426bb4e85e673af338a3">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/retrofit-2.0.1_643491602b9015470d40b2a0a201e97d5d1041c3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/sqlbrite-0.6.2.jar"
         jumboMode="true"
         optimize="true"
@@ -187,17 +304,8 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="5ecb55356905526cef6e8e9b47687cbab4fbc45c">
+        sha1="e4c22c690c8976b9e792968fea2a9590a8b686d2">
         <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_f48d0f4798f17bca6df621ba366faf618a7665e5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/dji_eventbus.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="91a5399115cedf41ebd53be7c96e424ac3aed1a8">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/dji_eventbus_d7a167c463b75f405907751d9d2c05d79fb10957/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -207,15 +315,6 @@
         revision="25.0.2"
         sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
         <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.0_104f4ea7261ef05f3d514cc3c04cd735db2a071b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.1.0_9dcce87000134773713b3b82936cfd0b5c818dd7/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -255,57 +354,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.1.0_65fd6c80b1b2ee2e8f735ce351af9e6197fad60d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth/10.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="9cca2818594cc5348806d6662133491e7ea0fa8d">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-10.0.1_682d3f8add27ac042ff3fd1103d1dfe2751c1fc6/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.beardedhen/androidbootstrap/2.3.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="1fa232b911d639fca8d5d2f6c5541edcebf4cfee">
         <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.beardedhen-androidbootstrap-2.3.0_0b8c2094a85ac40e6a8ca67c304850a2b3af5e74/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/dji-sdk.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="1caeea6670e86792065a293010f09555d21d05e8">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/dji-sdk_e4bae2c95acb6198f3dfbd2c82ab375c447b41ea/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/dji_gson.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="729a9cf81838d286b6098dc9c33d264d5db48a26">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/dji_gson_296e619be96624d59eb0ca84b37cf716f105e90f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_f3a3d3b80da6981001f6fb2937d182839f05ef4b/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -318,66 +372,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.0_7968b3c062f8acc99e708c567a9865c41fe65721/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/10.0.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-10.0.1_37747b79ee3e49a4ab018322affd5e66595ddde9/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/converter-gson-2.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="56caaeea09d3e406f6160972ff5d3e6c0e6f139b">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/converter-gson-2.0.1_2a305e0b1325ec3c7e519560766f538c7ba4ce80/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="6fb6ac3e8d3b9013819920d9ea11f3803c4c0033">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.0_782cff6dfdfc1248f50b84dcdff03b5cf324853f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/DroneMapper-Android/dJISDKLIB/unspecified/jars/libs/okio-1.7.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="58a92147e3365aa0039fc81a31b87f4957e6a555">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/okio-1.7.0_c7111b56237b21b8f3e3291a40aa0a0a2caf3388/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/10.0.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="486371f97baad8e607f332f20fee1d3dd00a731a">
         <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-10.0.1_6618d19f69c382ed222e26fe800f349c319dc864/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/biseratanasov/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
-        <dex dex="/Users/biseratanasov/Github/DroneMapper-Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.0_7dae5945de31dfbebbf04f811068d7f47de34064/classes.dex" />
     </item>
     <item
         is-multidex="true"
